@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-elasticsearch",
-  "version": "0.0.2a",
+  "version": "0.1.0",
   "description": "Connect LoopBack to Elasticsearch engine",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,15 @@
     "connector"
   ],
   "author": "Drakerian",
+  "contributors": [
+    {
+      "name": "Pulkit Singhal",
+      "email": "pulkit@shoppinpal.com"
+    },
+    {
+      "name": "yagobski"
+    }
+  ],
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
