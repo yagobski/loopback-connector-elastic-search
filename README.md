@@ -109,21 +109,16 @@ Optional:
 - **Type:** Search engine specific type.
 
 ## Run example
-Goto to _examples_ folder and run:
-    
-    npm install
-    
-Goto _server_ folder and run:
 
-    node server.js
+1. Install dependencies and start the example server
 
-Open browse, and set in URL:
-
-    http://localhost:3000/explorer
-
-To test a specific filter in GET method, use for example:
-    
-    {"q" : "friends, romans, countrymen"}
+```
+cd examples
+npm install
+node server/server.js
+```
+2. Open this URL in your browser: http://localhost:3000/explorer
+3. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
 
 ## Release notes
 
