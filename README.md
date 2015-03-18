@@ -77,18 +77,23 @@ Create model (see **/examples/entry.json**):
 ## Configuring elastic connector
 Edit **datasources.json** and set:
 
-    [ConnectorEntry] : {
-        "host": [127.0.0.1],
-        "port": [9200],
-        "name": [Name],
-        "connector": "elastic-search",
-        ...
+    "<ConnectorEntry>": {
+        "connector": "elasticsearch",
+        "name": "<name>",
+        "index": "<index>",
+        "hosts": [
+          {
+            "protocol": "https",
+            "host": "<hosted.foundcluster.com>",
+            "port": 9243,
+            "auth": "<username:password>"
+          }
+        ],
         "log": "trace",
-        "defaultSize": [Rows],
-        "index": [IndexName],
-        // "type": [TypeName]  // I remove this line because it will fix to only one type.
-    }
-    
+        "defaultSize": <Rows>,
+        "ssl": <true|false>
+      }
+
 Required:
 ---------
 - **Host:** Elasticsearch engine host address.
