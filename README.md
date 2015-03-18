@@ -112,11 +112,11 @@ Optional:
 
 1. Install dependencies and start the example server
 
-```
+  ```
 cd examples
 npm install
 node server/server.js
-```
+  ```
 2. Open this URL in your browser: http://localhost:3000/explorer
 3. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
 
