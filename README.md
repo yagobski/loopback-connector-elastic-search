@@ -23,6 +23,7 @@ NOTE: You can configure the index name for your ES instance and the model name i
         "port": 9200
       }
     ],
+    "apiVersion": "<apiVersion>",
     "log": "trace",
     "defaultSize": <Rows>
 }
@@ -31,16 +32,17 @@ NOTE: You can configure the index name for your ES instance and the model name i
 
 Required:
 ---------
-- **Host:** Elasticsearch engine host address.
-- **Port:** Elasticsearch engine port.
-- **Name:** Connector name.
-- **Connector:** Elasticsearch driver.
-- **Index:** Search engine specific index.
+- **host:** Elasticsearch engine host address.
+- **port:** Elasticsearch engine port.
+- **name:** Connector name.
+- **connector:** Elasticsearch driver.
+- **index:** Search engine specific index.
 
 Optional:
 ---------
-- **Log:** logging option.
-- **DefaultSize:** Rows to return per page.
+- **apiVersion:** specify the major version of the Elasticsearch nodes you will be connecting to.
+- **log:** logging option.
+- **defaultSize:** Rows to return per page.
 
 ## Run example
 

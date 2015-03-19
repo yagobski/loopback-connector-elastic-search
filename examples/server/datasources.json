@@ -13,6 +13,7 @@
                 "port": 9243
             }
         ],
+        "apiVersion": "1.1",
         "log": "trace",
         "defaultSize": 50
     },
@@ -28,6 +29,7 @@
           "auth": "username:password"
         }
       ],
+        "apiVersion": "1.1",
       "log": "trace",
       "defaultSize": 50,
       "ssl": {
