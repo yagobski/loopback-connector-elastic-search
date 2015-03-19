@@ -3,13 +3,36 @@
         "name": "db",
         "connector": "memory"
     },
-    "elastic-test": {
-        "host": "127.0.0.1",
-        "port": 9200,
-        "name": "elastic-test",
-        "connector": "elastic-search",
+    "elasticsearch-plain": {
+        "name": "elasticsearch-plain",
+        "connector": "elasticsearch",
+        "index": "shakespeare",
+        "hosts": [
+            {
+                "host": "hosted.foundcluster.com",
+                "port": 9243
+            }
+        ],
         "log": "trace",
-        "defaultSize": 50,
-        "index": "shakespeare"
+        "defaultSize": 50
+    },
+    "elasticsearch-ssl": {
+      "name": "elasticsearch-ssl",
+      "connector": "elasticsearch",
+      "index": "shakespeare",
+      "hosts": [
+        {
+          "protocol": "https",
+          "host": "hosted.foundcluster.com",
+          "port": 9243,
+          "auth": "username:password"
+        }
+      ],
+      "log": "trace",
+      "defaultSize": 50,
+      "ssl": {
+        "ca": "./../cacert.pem",
+        "rejectUnauthorized": true
+      }
     }
 }

@@ -37,7 +37,10 @@
   "homepage": "https://github.com/shoppinpal/loopback-connector-elastic-search",
   "dependencies": {
     "async": "^0.9.0",
+    "bluebird": "^2.9.14",
+    "debug": "^2.1.3",
     "elasticsearch": "^2.4.3",
+    "lodash": "^3.5.0",
     "loopback-connector": "^1.1.1"
   },
   "directories": {
