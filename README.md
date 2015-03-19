@@ -2,97 +2,32 @@
 
 Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/node-js/loopback/).
 
-This connector have difference with the original. You can have one specific Type by model. 
-The original you can only have one index and one type configured from settings. This module can still have only one index but you can have for etch model one Type.
-
-Exemple :
-
-Loopback Model Music  ==>  Elasticsearch Type = Music
-
-
-## Setting up Elasticsearch
-- Download and install [Elasticsearch](http://www.elasticsearch.org)
-- Goto /elasticsearch-path/bin$ and execute ./elasticsearch
-- Optional install [head plugin](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-plugins.html)
-- Open browser and goto default url: http://localhost:9200/
-- To use head plugin goto: _http://localhost:9200/_plugin/head/_
-- If all is ok then the result is some this:<br>
-
-
-    {
-        status: 200,
-        name: "Arno Stark",
-        version: {
-            number: "1.3.2",
-            build_hash: "dee175dbe2f254f3f26992f5d7591939aaefd12f",
-            build_timestamp: "2014-08-13T14:29:30Z",
-            build_snapshot: false,
-            lucene_version: "4.9"
-        },
-        tagline: "You Know, for Search"
-    }
-
-## Populate for demo Elasticsearch
-Run in terminal:<br>
-
-    curl -XPUT http://localhost:9200/shakespeare -d '{
-        "mappings" : {
-            "_default_" : {
-                "properties" : {
-                    "speaker" : {"type": "string", "index" : "not_analyzed" },
-                    "play_name" : {"type": "string", "index" : "not_analyzed" },
-                    "line_id" : { "type" : "integer" },
-                    "speech_number" : { "type" : "integer" }
-                }
-            }
-        }
-    }';
-
-Import data example to Elasticsearch:
-
-    cd examples/data
-    curl -XPUT localhost:9200/_bulk --data-binary @shakespeare.json
-
-
-## Setting up Loopback
-Install StrongLoop command line interface:
-
-    npm install -g strong-cli
-Create project:
-
-    slc loopback:loopback
-    set project path and name
-Attach datasource (see **/server/datasources.json**):
-
-    slc loopback:datasource test-elastic
-    select loopback-connector-elastic
-Create model (see **/examples/entry.json**):
-
-    slc loopback:model entry
+NOTE: You can configure the index name for your ES instance and the model name is automatically mapped as the ES type.
 
 ## Install connector from NPM
 
-    npm install loopback-connector-elastic-search --save
+    npm install loopback-connector-es --save
 
-## Configuring elastic connector
-Edit **datasources.json** and set:
+## Configuring connector
 
-    "<ConnectorEntry>": {
-        "connector": "elasticsearch",
-        "name": "<name>",
-        "index": "<index>",
-        "hosts": [
-          {
-            "protocol": "https",
-            "host": "<hosted.foundcluster.com>",
-            "port": 9243,
-            "auth": "<username:password>"
-          }
-        ],
-        "log": "trace",
-        "defaultSize": <Rows>,
-        "ssl": <true|false>
+1 . Edit **datasources.json** and set:
+
+  ```
+"<ConnectorEntry>": {
+    "connector": "elasticsearch",
+    "name": "<name>",
+    "index": "<index>",
+    "hosts": [
+      {
+        "host": "127.0.0.1",
+        "port": 9200
       }
+    ],
+    "log": "trace",
+    "defaultSize": <Rows>
+}
+  ```
+2. You can peek at `/examples/server/datasources.json` for more hints.
 
 Required:
 ---------
@@ -100,13 +35,12 @@ Required:
 - **Port:** Elasticsearch engine port.
 - **Name:** Connector name.
 - **Connector:** Elasticsearch driver.
+- **Index:** Search engine specific index.
 
 Optional:
 ---------
 - **Log:** logging option.
 - **DefaultSize:** Rows to return per page.
-- **Index:** Search engine specific index.
-- **Type:** Search engine specific type.
 
 ## Run example
 
