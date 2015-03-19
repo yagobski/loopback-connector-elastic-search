@@ -18,14 +18,32 @@ NOTE: You can configure the index name for your ES instance and the model name i
     "name": "<name>",
     "index": "<index>",
     "hosts": [
-      {
-        "host": "127.0.0.1",
-        "port": 9200
-      }
+          {
+            "protocol": "http",
+            "host": "127.0.0.1",
+            "port": 9200,
+            "auth": "username:password"
+          }
     ],
     "apiVersion": "<apiVersion>",
     "log": "trace",
-    "defaultSize": <Rows>
+    "defaultSize": <defaultSize>,
+    "requestTimeout": 30000,
+    "ssl": {
+        "ca": "./../cacert.pem",
+        "rejectUnauthorized": true
+    },
+    "mappings": [
+        {
+            "name": "UserModel",
+            "properties": {
+                "realm": {"type": "string", "index" : "not_analyzed" },
+                "username": {"type": "string", "index" : "not_analyzed" },
+                "password": {"type": "string", "index" : "not_analyzed" },
+                "email": {"type": "string", "index" : "not_analyzed" }
+            }
+        }
+    ]
 }
   ```
 2. You can peek at `/examples/server/datasources.json` for more hints.
@@ -42,7 +60,12 @@ Optional:
 ---------
 - **apiVersion:** specify the major version of the Elasticsearch nodes you will be connecting to.
 - **log:** logging option.
-- **defaultSize:** Rows to return per page.
+- **defaultSize:** total number of results to return per page.
+- **requestTimeout:** this value is in milliseconds
+- **ssl:** useful for setting up a secure channel
+- **protocol:** can be `http` or `https` (`http` is the default if none specified) ... *must* be `https` if you're using `ssl` 
+- **auth**: useful if you have access control setup via services like `es-jetty` or `found` or `shield`
+- **mappings:** an array of elasticsearch mappings for your various loopback models
 
 ## Run example
 
