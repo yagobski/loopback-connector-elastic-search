@@ -1,5 +1,5 @@
 {
-  "name": "loopback-connector-elasticsearch",
+  "name": "loopback-connector-es",
   "version": "0.1.0",
   "description": "Connect LoopBack to Elasticsearch engine",
   "main": "index.js",
@@ -9,6 +9,8 @@
   "keywords": [
     "loopback",
     "elastic",
+    "elasticsearch",
+    "es",
     "loopback-connector",
     "connector"
   ],

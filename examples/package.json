@@ -11,7 +11,7 @@
         "loopback": "^2.0.0",
         "loopback-boot": "^2.0.0",
         "loopback-connector-elastic-search": "0.0.1-b",
-        "loopback-connector-elasticsearch": "ShoppinPal/loopback-connector-elastic-search",
+        "loopback-connector-es": "ShoppinPal/loopback-connector-elastic-search",
         "loopback-datasource-juggler": "^2.7.0",
         "serve-favicon": "^2.0.1"
     },
