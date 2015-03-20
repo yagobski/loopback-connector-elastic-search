@@ -5,9 +5,12 @@
  *   DEBUG=loopback:connector:*,loopback:datasource,boot:test:* node server/server.js
  */
 
-var debug = require('debug')('boot:test:01-create-user');
 var _ = require('lodash');
 var Promise = require('bluebird');
+
+var path = require('path');
+var fileName = path.basename(__filename, '.js'); // gives the filename without the .js extension
+var debug = require('debug')('boot:test:'+fileName);
 
 module.exports = function(app) {
     var UserModel = app.models.UserModel;
