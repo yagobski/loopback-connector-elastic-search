@@ -15,7 +15,6 @@ var debug = require('debug')('boot:test:'+fileName);
 module.exports = function(app) {
     var UserModel = app.models.UserModel;
 
-
     var userWithStringId4 = {
         id: '4',
         realm: 'portal',

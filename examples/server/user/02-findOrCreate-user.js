@@ -36,7 +36,7 @@ module.exports = function(app) {
         password: 'userWithoutAnyId3'
     };
 
-    var users = [userWithStringId, userWithNumericId, userWithoutAnyId];
+    var users = [userWithStringId1, userWithNumericId2, userWithoutAnyId3];
 
     Promise.map(
         users,
