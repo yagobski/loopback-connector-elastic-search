@@ -13,28 +13,28 @@ module.exports = function(app) {
     var UserModel = app.models.UserModel;
 
 
-    var userWithStringId = {
-        id: '1',
+    var userWithStringId4 = {
+        id: '4',
         realm: 'portal',
-        username: 'userWithStringId@shoppinpal.com',
-        email: 'userWithStringId@shoppinpal.com',
-        password: 'userWithStringId'
+        username: 'userWithStringId4@shoppinpal.com',
+        email: 'userWithStringId4@shoppinpal.com',
+        password: 'userWithStringId4'
     };
-    var userWithNumericId = {
-        id: 2,
+    var userWithNumericId5 = {
+        id: 5,
         realm: 'portal',
-        username: 'userWithNumericId@shoppinpal.com',
-        email: 'userWithNumericId@shoppinpal.com',
-        password: 'userWithNumericId'
+        username: 'userWithNumericId5@shoppinpal.com',
+        email: 'userWithNumericId5@shoppinpal.com',
+        password: 'userWithNumericId5'
     };
-    var userWithoutAnyId = {
+    var userWithoutAnyId6 = {
         realm: 'portal',
-        username: 'userWithoutId@shoppinpal.com',
-        email: 'userWithoutId@shoppinpal.com',
-        password: 'userWithoutId'
+        username: 'userWithoutAnyId6@shoppinpal.com',
+        email: 'userWithoutAnyId6@shoppinpal.com',
+        password: 'userWithoutAnyId6'
     };
 
-    var users = [userWithStringId, userWithNumericId, userWithoutAnyId];
+    var users = [userWithStringId4, userWithNumericId5, userWithoutAnyId6];
 
     Promise.map(
         users,

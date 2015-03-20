@@ -36,16 +36,19 @@ module.exports = function(app) {
         password: 'userWithoutAnyId3'
     };
 
-    var users = [userWithStringId1, userWithNumericId2, userWithoutAnyId3];
+    var users = [userWithStringId, userWithNumericId, userWithoutAnyId];
 
     Promise.map(
         users,
         function (user) {
-            return UserModel.findAsync({
-                where: {username: user.username}
-            })
-                .then(function (resolvedData) {
-                    debug('findAsync', user.username, 'results:', JSON.stringify(resolvedData,null,2));
+            return UserModel.findOrCreateAsync(
+                {where: {username: user.username}}, // find
+                user // create
+            )
+                .spread(function (aUser, created) {
+                    // API changes: 2015-01-07, Version 2.13.0
+                    //   add a flag to callback of findOrCreate to indicate find or create (Clark Wang)
+                    debug('findOrCreateAsync', user.username, 'created', created, 'results:', JSON.stringify(aUser,null,2));
                     return Promise.resolve();
                 },
                 function (err) {
