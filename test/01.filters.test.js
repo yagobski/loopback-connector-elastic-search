@@ -1,10 +1,12 @@
-var init = require('./init');
-
 describe('Connector', function () {
     var testConnector;
 
     before(function () {
-        testConnector = getConnector();
+        require('./init.js');
+        var settings = require('./resource/datasource.json');
+        settings.log = 'error';
+        var datasource = getDataSource(settings);
+        testConnector = datasource.connector;
     });
 
     it('should configure defaults when building filters', function (done) {
