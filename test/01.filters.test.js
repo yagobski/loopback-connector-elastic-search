@@ -3,7 +3,7 @@ describe('Connector', function () {
 
     before(function () {
         require('./init.js');
-        var settings = require('./resource/datasource.json');
+        var settings = getSettings();
         settings.log = 'error';
         var datasource = getDataSource(settings);
         testConnector = datasource.connector;
