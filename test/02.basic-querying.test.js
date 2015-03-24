@@ -67,6 +67,40 @@ describe('basic-querying', function () {
 
     });
 
+    describe('custom', function () {
+
+        it('suggests query should work', function (done) {
+            User.all({
+                suggests: {
+                    'title_suggester': {
+                        text: 'd',
+                        term: {
+                            field: 'name'
+                        }
+                    }
+                }
+            }, function (err, u) {
+                //should.exist(u);
+                should.not.exist(err);
+                done();
+            });
+        });
+
+        it('native query should work', function (done) {
+            User.all({
+                native: {
+                    query: {
+                        'match_all': {}
+                    }
+                }
+            }, function (err, u) {
+                should.exist(u);
+                should.not.exist(err);
+                done();
+            });
+        });
+    });
+
     describe('findByIds', function () {
         var createdUsers;
         before(function(done) {
