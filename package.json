@@ -27,16 +27,16 @@
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shoppinpal/loopback-connector-elastic-search.git"
+    "url": "https://github.com/strongloop-community/loopback-connector-elastic-search.git"
   },
   "license": {
     "name": "MIT",
-    "url": "https://github.com/shoppinpal/loopback-connector-elastic-search/blob/master/LICENCE"
+    "url": "https://github.com/strongloop-community/loopback-connector-elastic-search/blob/master/LICENCE"
   },
   "bugs": {
-    "url": "https://github.com/shoppinpal/loopback-connector-elastic-search/issues"
+    "url": "https://github.com/strongloop-community/loopback-connector-elastic-search/issues"
   },
-  "homepage": "https://github.com/shoppinpal/loopback-connector-elastic-search",
+  "homepage": "https://github.com/strongloop-community/loopback-connector-elastic-search",
   "dependencies": {
     "async": "^0.9.0",
     "bluebird": "^2.9.14",
