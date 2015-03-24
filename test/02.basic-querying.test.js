@@ -6,8 +6,8 @@ describe('basic-querying', function () {
 
     before(function (done) {
         // turn on additional logging
-        process.env.DEBUG += 'loopback:connector:*';
-        console.log('process.env.DEBUG: ' + process.env.DEBUG);
+        /*process.env.DEBUG += ',loopback:connector:*';
+        console.log('process.env.DEBUG: ' + process.env.DEBUG);*/
 
         db = getSchema();
         User = db.define('User', {
@@ -67,7 +67,7 @@ describe('basic-querying', function () {
 
     });
 
-    xdescribe('findByIds', function () {
+    describe('findByIds', function () {
         var createdUsers;
         before(function(done) {
             var people = [
@@ -79,6 +79,7 @@ describe('basic-querying', function () {
                 { id: 6, name: 'f' }
             ];
             db.automigrate(['User'], function(err) {
+                should.not.exist(err);
                 User.create(people, function(err, users) {
                     should.not.exist(err);
                     // Users might be created in parallel and the generated ids can be
@@ -89,7 +90,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should query by ids', function(done) {
+        xit('should query by ids', function(done) {
             User.findByIds(
                 [createdUsers[2].id, createdUsers[1].id, createdUsers[0].id],
                 function(err, users) {
@@ -104,7 +105,7 @@ describe('basic-querying', function () {
                 });
         });
 
-        it('should query by ids and condition', function(done) {
+        xit('should query by ids and condition', function(done) {
             User.findByIds([
                     createdUsers[0].id,
                     createdUsers[1].id,

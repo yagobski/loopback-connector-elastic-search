@@ -30,7 +30,7 @@ describe('Connector', function () {
         offset = 10;
         modelName = 'MockLoopbackModel';
 
-        var filterCriteria = testConnector.makeFilter(modelName, criteria, size, offset);
+        var filterCriteria = testConnector.buildFilter(modelName, criteria, size, offset);
         expect(filterCriteria).not.to.be.null;
         expect(filterCriteria).to.have.property('index')
             .that.is.a('string');
@@ -81,7 +81,7 @@ describe('Connector', function () {
         offset = 10;
         modelName = 'MockLoopbackModel';
 
-        var filterCriteria = testConnector.makeFilter(modelName, criteria, size, offset);
+        var filterCriteria = testConnector.buildFilter(modelName, criteria, size, offset);
         expect(filterCriteria).not.to.be.null;
         expect(filterCriteria).to.have.property('index')
             .that.is.a('string');
