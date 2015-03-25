@@ -124,19 +124,22 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should query by ids', function(done) {
-            User.findByIds(
-                [createdUsers[2].id, createdUsers[1].id, createdUsers[0].id],
-                function(err, users) {
-                    should.exist(users);
-                    should.not.exist(err);
-                    var names = users.map(function(u) {
-                        return u.name;
+        it('should query by ids', function(done) {
+            this.timeout(4000);
+            setTimeout(function(){
+                User.findByIds(
+                    [createdUsers[2].id, createdUsers[1].id, createdUsers[0].id],
+                    function(err, users) {
+                        should.exist(users);
+                        should.not.exist(err);
+                        var names = users.map(function(u) {
+                            return u.name;
+                        });
+                        names.should.eql(
+                            [createdUsers[2].name, createdUsers[1].name, createdUsers[0].name]);
+                        done();
                     });
-                    names.should.eql(
-                        [createdUsers[2].name, createdUsers[1].name, createdUsers[0].name]);
-                    done();
-                });
+            }, 2000);
         });
 
         xit('should query by ids and condition', function(done) {
