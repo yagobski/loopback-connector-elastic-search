@@ -14,5 +14,7 @@ global.getSettings = function() {
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
 global.getDataSource = global.getSchema = global.getConnector = function (customConfig) {
-    return new DataSource(require('../'), customConfig || getSettings());
+    var settings = getSettings();
+    settings.connector =  require('../');
+    return new DataSource(settings);
 };
