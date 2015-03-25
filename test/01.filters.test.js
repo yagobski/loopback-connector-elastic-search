@@ -20,7 +20,7 @@ describe('Connector', function () {
     });
 
     it('should build a query for the WHERE filter', function (done) {
-        var criteria, size, offset, modelName;
+        var criteria, size, offset, modelName, modelIdName;
         criteria = {
             'where': {
                 'title': 'Futuro'
@@ -29,8 +29,9 @@ describe('Connector', function () {
         size = 100;
         offset = 10;
         modelName = 'MockLoopbackModel';
+        modelIdName = 'id';
 
-        var filterCriteria = testConnector.buildFilter(modelName, criteria, size, offset);
+        var filterCriteria = testConnector.buildFilter(modelName, modelIdName, criteria, size, offset);
         expect(filterCriteria).not.to.be.null;
         expect(filterCriteria).to.have.property('index')
             .that.is.a('string');
@@ -61,7 +62,7 @@ describe('Connector', function () {
     });
 
     it('should use a NATIVE filter query as-is', function (done) {
-        var criteria, size, offset, modelName;
+        var criteria, size, offset, modelName, modelIdName;
         criteria = {
             'native': {
                 query: {
@@ -80,8 +81,9 @@ describe('Connector', function () {
         size = 100;
         offset = 10;
         modelName = 'MockLoopbackModel';
+        modelIdName = 'id';
 
-        var filterCriteria = testConnector.buildFilter(modelName, criteria, size, offset);
+        var filterCriteria = testConnector.buildFilter(modelName, modelIdName, criteria, size, offset);
         expect(filterCriteria).not.to.be.null;
         expect(filterCriteria).to.have.property('index')
             .that.is.a('string');
