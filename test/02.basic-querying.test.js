@@ -104,6 +104,7 @@ describe('basic-querying', function () {
     describe('findByIds', function () {
         var createdUsers;
         before(function(done) {
+            this.timeout(4000);
             var people = [
                 { id: 1, name: 'a', vip: true },
                 { id: 2, name: 'b' },
@@ -142,26 +143,29 @@ describe('basic-querying', function () {
             }, 2000);
         });
 
-        xit('should query by ids and condition', function(done) {
-            User.findByIds([
-                    createdUsers[0].id,
-                    createdUsers[1].id,
-                    createdUsers[2].id,
-                    createdUsers[3].id],
-                { where: { vip: true } }, function(err, users) {
-                    should.exist(users);
-                    should.not.exist(err);
-                    var names = users.map(function(u) {
-                        return u.name;
-                    });
-                    names.should.eql(createdUsers.slice(0, 4).
-                        filter(function(u) {
-                            return u.vip;
-                        }).map(function(u) {
+        it('should query by ids and condition', function(done) {
+            this.timeout(4000);
+            setTimeout(function(){
+                User.findByIds([
+                        createdUsers[0].id,
+                        createdUsers[1].id,
+                        createdUsers[2].id,
+                        createdUsers[3].id],
+                    { where: { vip: true } }, function(err, users) {
+                        should.exist(users);
+                        should.not.exist(err);
+                        var names = users.map(function(u) {
                             return u.name;
-                        }));
-                    done();
-                });
+                        });
+                        names.should.eql(createdUsers.slice(0, 4).
+                            filter(function(u) {
+                                return u.vip;
+                            }).map(function(u) {
+                                return u.name;
+                            }));
+                        done();
+                    });
+            }, 2000);
         });
 
     });
