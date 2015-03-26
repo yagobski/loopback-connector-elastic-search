@@ -82,6 +82,7 @@ node server/server.js
 ## Release notes
 
   * Users must setup a not_analyzed multi-field mapping for string sorting against ES connector
+
     ```
     "name" : {
         "type" : "multi_field",
