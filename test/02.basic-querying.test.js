@@ -40,6 +40,7 @@ describe('basic-querying', function () {
         });
 
         it('should query by id: not found', function (done) {
+            // TODO: wait a few seconds for the Users to be destroyed? near-real-time != real-time
             User.findById(1, function (err, u) {
                 should.not.exist(u);
                 should.not.exist(err);
@@ -176,6 +177,7 @@ describe('basic-querying', function () {
 
         it('should query collection', function (done) {
             this.timeout(4000);
+            // NOTE: ES indexing then searching isn't real-time ... its near-real-time
             setTimeout(function(){
                 User.find(function (err, users) {
                     should.exist(users);
@@ -195,30 +197,30 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should query collection with skip & limit', function (done) {
+        it('should query ordered collection with skip & limit', function (done) {
             User.find({skip: 1, limit: 4, order: 'seq'}, function (err, users) {
-                should.exists(users);
-                should.not.exists(err);
+                should.exist(users);
+                should.not.exist(err);
                 users[0].seq.should.be.eql(1);
                 users.should.have.lengthOf(4);
                 done();
             });
         });
 
-        xit('should query collection with offset & limit', function (done) {
+        it('should query ordered collection with offset & limit', function (done) {
             User.find({offset: 2, limit: 3, order: 'seq'}, function (err, users) {
-                should.exists(users);
-                should.not.exists(err);
+                should.exist(users);
+                should.not.exist(err);
                 users[0].seq.should.be.eql(2);
                 users.should.have.lengthOf(3);
                 done();
             });
         });
 
-        xit('should query filtered collection', function (done) {
+        it('should query filtered collection', function (done) {
             User.find({where: {role: 'lead'}}, function (err, users) {
-                should.exists(users);
-                should.not.exists(err);
+                should.exist(users);
+                should.not.exist(err);
                 users.should.have.lengthOf(2);
                 done();
             });
