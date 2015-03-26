@@ -226,10 +226,10 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should query collection sorted by numeric field', function (done) {
+        it('should query collection sorted by numeric field', function (done) {
             User.find({order: 'order'}, function (err, users) {
-                should.exists(users);
-                should.not.exists(err);
+                should.exist(users);
+                should.not.exist(err);
                 users.forEach(function (u, i) {
                     u.order.should.eql(i + 1);
                 });
@@ -237,10 +237,10 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should query collection desc sorted by numeric field', function (done) {
+        it('should query collection desc sorted by numeric field', function (done) {
             User.find({order: 'order DESC'}, function (err, users) {
-                should.exists(users);
-                should.not.exists(err);
+                should.exist(users);
+                should.not.exist(err);
                 users.forEach(function (u, i) {
                     u.order.should.eql(users.length - i);
                 });
@@ -248,10 +248,10 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should query collection sorted by string field', function (done) {
-            User.find({order: 'name'}, function (err, users) {
-                should.exists(users);
-                should.not.exists(err);
+        it('should query collection sorted by string field', function (done) {
+            User.find({order: 'name.na'}, function (err, users) {
+                should.exist(users);
+                should.not.exist(err);
                 users.shift().name.should.equal('George Harrison');
                 users.shift().name.should.equal('John Lennon');
                 users.pop().name.should.equal('Stuart Sutcliffe');
@@ -259,10 +259,10 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should query collection desc sorted by string field', function (done) {
-            User.find({order: 'name DESC'}, function (err, users) {
-                should.exists(users);
-                should.not.exists(err);
+        it('should query collection desc sorted by string field', function (done) {
+            User.find({order: 'name.na DESC'}, function (err, users) {
+                should.exist(users);
+                should.not.exist(err);
                 users.pop().name.should.equal('George Harrison');
                 users.pop().name.should.equal('John Lennon');
                 users.shift().name.should.equal('Stuart Sutcliffe');

@@ -81,4 +81,19 @@ node server/server.js
 
 ## Release notes
 
-  * First beta version
+  * Users must setup a not_analyzed multi-field mapping for string sorting against ES connector
+    ```
+    "name" : {
+        "type" : "multi_field",
+        "fields" : {
+            "name" : {"type" : "string", "index" : "analyzed"},
+            "na" : {"type" : "string", "index" : "not_analyzed"}
+        }
+    }
+    ...
+    // then use
+    User.find({order: 'name.na'}, function (err, users) {..}
+    // instead of
+    User.find({order: 'name'}, function (err, users) {..}
+    ```
+  * TBD
