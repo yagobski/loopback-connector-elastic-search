@@ -170,20 +170,23 @@ describe('basic-querying', function () {
 
     });
 
-    xdescribe('find', function () {
+    describe('find', function () {
 
         before(seed);
 
         it('should query collection', function (done) {
-            User.find(function (err, users) {
-                should.exists(users);
-                should.not.exists(err);
-                users.should.have.lengthOf(6);
-                done();
-            });
+            this.timeout(4000);
+            setTimeout(function(){
+                User.find(function (err, users) {
+                    should.exist(users);
+                    should.not.exist(err);
+                    users.should.have.lengthOf(6);
+                    done();
+                });
+            }, 2000);
         });
 
-        it('should query limited collection', function (done) {
+        xit('should query limited collection', function (done) {
             User.find({limit: 3}, function (err, users) {
                 should.exists(users);
                 should.not.exists(err);
@@ -192,7 +195,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should query collection with skip & limit', function (done) {
+        xit('should query collection with skip & limit', function (done) {
             User.find({skip: 1, limit: 4, order: 'seq'}, function (err, users) {
                 should.exists(users);
                 should.not.exists(err);
@@ -202,7 +205,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should query collection with offset & limit', function (done) {
+        xit('should query collection with offset & limit', function (done) {
             User.find({offset: 2, limit: 3, order: 'seq'}, function (err, users) {
                 should.exists(users);
                 should.not.exists(err);
@@ -212,7 +215,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should query filtered collection', function (done) {
+        xit('should query filtered collection', function (done) {
             User.find({where: {role: 'lead'}}, function (err, users) {
                 should.exists(users);
                 should.not.exists(err);
@@ -221,7 +224,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should query collection sorted by numeric field', function (done) {
+        xit('should query collection sorted by numeric field', function (done) {
             User.find({order: 'order'}, function (err, users) {
                 should.exists(users);
                 should.not.exists(err);
@@ -232,7 +235,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should query collection desc sorted by numeric field', function (done) {
+        xit('should query collection desc sorted by numeric field', function (done) {
             User.find({order: 'order DESC'}, function (err, users) {
                 should.exists(users);
                 should.not.exists(err);
@@ -243,7 +246,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should query collection sorted by string field', function (done) {
+        xit('should query collection sorted by string field', function (done) {
             User.find({order: 'name'}, function (err, users) {
                 should.exists(users);
                 should.not.exists(err);
@@ -254,7 +257,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should query collection desc sorted by string field', function (done) {
+        xit('should query collection desc sorted by string field', function (done) {
             User.find({order: 'name DESC'}, function (err, users) {
                 should.exists(users);
                 should.not.exists(err);
@@ -265,7 +268,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support "and" operator that is satisfied', function (done) {
+        xit('should support "and" operator that is satisfied', function (done) {
             User.find({where: {and: [
                 {name: 'John Lennon'},
                 {role: 'lead'}
@@ -276,7 +279,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support "and" operator that is not satisfied', function (done) {
+        xit('should support "and" operator that is not satisfied', function (done) {
             User.find({where: {and: [
                 {name: 'John Lennon'},
                 {role: 'member'}
@@ -287,7 +290,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support "or" that is satisfied', function (done) {
+        xit('should support "or" that is satisfied', function (done) {
             User.find({where: {or: [
                 {name: 'John Lennon'},
                 {role: 'lead'}
@@ -298,7 +301,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support "or" operator that is not satisfied', function (done) {
+        xit('should support "or" operator that is not satisfied', function (done) {
             User.find({where: {or: [
                 {name: 'XYZ'},
                 {role: 'Hello1'}
@@ -309,7 +312,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support date "gte" that is satisfied', function (done) {
+        xit('should support date "gte" that is satisfied', function (done) {
             User.find({order: 'seq', where: { birthday: { "gte": new Date('1980-12-08') }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -319,7 +322,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support date "gt" that is not satisfied', function (done) {
+        xit('should support date "gt" that is not satisfied', function (done) {
             User.find({order: 'seq', where: { birthday: { "gt": new Date('1980-12-08') }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -328,7 +331,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support date "gt" that is satisfied', function (done) {
+        xit('should support date "gt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { birthday: { "gt": new Date('1980-12-07') }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -338,7 +341,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support date "lt" that is satisfied', function (done) {
+        xit('should support date "lt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { birthday: { "lt": new Date('1980-12-07') }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -348,7 +351,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support number "gte" that is satisfied', function (done) {
+        xit('should support number "gte" that is satisfied', function (done) {
             User.find({order: 'seq', where: { order: { "gte":  3}
             }}, function (err, users) {
                 should.not.exist(err);
@@ -358,7 +361,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support number "gt" that is not satisfied', function (done) {
+        xit('should support number "gt" that is not satisfied', function (done) {
             User.find({order: 'seq', where: { order: { "gt": 6 }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -367,7 +370,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support number "gt" that is satisfied', function (done) {
+        xit('should support number "gt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { order: { "gt": 5 }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -377,7 +380,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support number "lt" that is satisfied', function (done) {
+        xit('should support number "lt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { order: { "lt": 2 }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -387,7 +390,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support number "gt" that is satisfied by null value', function (done) {
+        xit('should support number "gt" that is satisfied by null value', function (done) {
             User.find({order: 'seq', where: { order: { "gt": null }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -396,7 +399,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support number "lt" that is not satisfied by null value', function (done) {
+        xit('should support number "lt" that is not satisfied by null value', function (done) {
             User.find({order: 'seq', where: { order: { "lt": null }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -405,7 +408,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support string "gte" that is satisfied by null value', function (done) {
+        xit('should support string "gte" that is satisfied by null value', function (done) {
             User.find({order: 'seq', where: { name: { "gte":  null}
             }}, function (err, users) {
                 should.not.exist(err);
@@ -414,7 +417,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support string "gte" that is satisfied', function (done) {
+        xit('should support string "gte" that is satisfied', function (done) {
             User.find({order: 'seq', where: { name: { "gte":  'Paul McCartney'}
             }}, function (err, users) {
                 should.not.exist(err);
@@ -424,7 +427,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support string "gt" that is not satisfied', function (done) {
+        xit('should support string "gt" that is not satisfied', function (done) {
             User.find({order: 'seq', where: { name: { "gt": 'xyz' }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -433,7 +436,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support string "gt" that is satisfied', function (done) {
+        xit('should support string "gt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { name: { "gt": 'Paul McCartney' }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -443,7 +446,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support string "lt" that is satisfied', function (done) {
+        xit('should support string "lt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { name: { "lt": 'Paul McCartney' }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -453,7 +456,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support boolean "gte" that is satisfied', function (done) {
+        xit('should support boolean "gte" that is satisfied', function (done) {
             User.find({order: 'seq', where: { vip: { "gte":  true}
             }}, function (err, users) {
                 should.not.exist(err);
@@ -463,7 +466,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support boolean "gt" that is not satisfied', function (done) {
+        xit('should support boolean "gt" that is not satisfied', function (done) {
             User.find({order: 'seq', where: { vip: { "gt": true }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -472,7 +475,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support boolean "gt" that is satisfied', function (done) {
+        xit('should support boolean "gt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { vip: { "gt": false }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -482,7 +485,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should support boolean "lt" that is satisfied', function (done) {
+        xit('should support boolean "lt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { vip: { "lt": true }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -493,7 +496,7 @@ describe('basic-querying', function () {
         });
 
 
-        it('should only include fields as specified', function (done) {
+        xit('should only include fields as specified', function (done) {
             var remaining = 0;
 
             function sample(fields) {
