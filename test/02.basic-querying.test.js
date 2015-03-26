@@ -186,10 +186,10 @@ describe('basic-querying', function () {
             }, 2000);
         });
 
-        xit('should query limited collection', function (done) {
+        it('should query limited collection', function (done) {
             User.find({limit: 3}, function (err, users) {
-                should.exists(users);
-                should.not.exists(err);
+                should.exist(users);
+                should.not.exist(err);
                 users.should.have.lengthOf(3);
                 done();
             });
