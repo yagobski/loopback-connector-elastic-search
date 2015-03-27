@@ -249,7 +249,7 @@ describe('basic-querying', function () {
         });
 
         it('should query collection sorted by string field', function (done) {
-            User.find({order: 'name.na'}, function (err, users) {
+            User.find({order: 'name'}, function (err, users) {
                 should.exist(users);
                 should.not.exist(err);
                 users.shift().name.should.equal('George Harrison');
@@ -260,7 +260,7 @@ describe('basic-querying', function () {
         });
 
         it('should query collection desc sorted by string field', function (done) {
-            User.find({order: 'name.na DESC'}, function (err, users) {
+            User.find({order: 'name DESC'}, function (err, users) {
                 should.exist(users);
                 should.not.exist(err);
                 users.pop().name.should.equal('George Harrison');
