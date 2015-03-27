@@ -81,20 +81,20 @@ node server/server.js
 
 ## Release notes
 
-  * Users must setup a not_analyzed multi-field mapping for string sorting against ES connector
+  * Users must setup `string` fields as `not_analyzed` by default for predictable matches just like other loopback backends. And if more flexibility is required, multi-field mappings can be used too.
 
     ```
     "name" : {
         "type" : "multi_field",
         "fields" : {
-            "name" : {"type" : "string", "index" : "analyzed"},
-            "na" : {"type" : "string", "index" : "not_analyzed"}
+            "name" : {"type" : "string", "index" : "not_analyzed"},
+            "native" : {"type" : "string", "index" : "analyzed"}
         }
     }
     ...
-    // then use
-    User.find({order: 'name.na'}, function (err, users) {..}
-    // instead of
+    // this will treat 'George Harrison' as 'George Harrison' in a search
     User.find({order: 'name'}, function (err, users) {..}
+    // this will treat 'George Harrison' as two tokens: 'george' and 'harrison' in a search
+    User.find({order: 'name', where: {'name.native': 'Harrison'}}, function (err, users) {..}
     ```
   * TBD
