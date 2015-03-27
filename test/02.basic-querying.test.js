@@ -270,7 +270,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support "and" operator that is satisfied', function (done) {
+        it('should support "and" operator that is satisfied', function (done) {
             User.find({where: {and: [
                 {name: 'John Lennon'},
                 {role: 'lead'}
@@ -281,7 +281,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support "and" operator that is not satisfied', function (done) {
+        it('should support "and" operator that is not satisfied', function (done) {
             User.find({where: {and: [
                 {name: 'John Lennon'},
                 {role: 'member'}
