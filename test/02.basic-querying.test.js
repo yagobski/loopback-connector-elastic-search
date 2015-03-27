@@ -5,6 +5,8 @@ var db, User;
 describe('basic-querying', function () {
 
     before(function (done) {
+        this.timeout(4000);
+
         // turn on additional logging
         /*process.env.DEBUG += ',loopback:connector:*';
         console.log('process.env.DEBUG: ' + process.env.DEBUG);*/
@@ -20,7 +22,11 @@ describe('basic-querying', function () {
             vip: {type: Boolean}
         });
 
+        setTimeout(function(){
+            // no big reason to delay this ...
+            // just want to give the feel that getSchema and automigrate are sequential actions
         db.automigrate(done);
+        }, 2000);
 
     });
 
@@ -151,7 +157,7 @@ describe('basic-querying', function () {
                         createdUsers[0].id,
                         createdUsers[1].id,
                         createdUsers[2].id,
-                        createdUsers[3].id],
+                        createdUsers[3].id], // this helps test "inq"
                     { where: { vip: true } }, function(err, users) {
                         should.exist(users);
                         should.not.exist(err);
