@@ -292,7 +292,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support "or" that is satisfied', function (done) {
+        it('should support "or" that is satisfied', function (done) {
             User.find({where: {or: [
                 {name: 'John Lennon'},
                 {role: 'lead'}
@@ -303,7 +303,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support "or" operator that is not satisfied', function (done) {
+        it('should support "or" operator that is not satisfied', function (done) {
             User.find({where: {or: [
                 {name: 'XYZ'},
                 {role: 'Hello1'}
