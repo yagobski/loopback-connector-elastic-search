@@ -464,7 +464,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support boolean "gte" that is satisfied', function (done) {
+        it('should support boolean "gte" that is satisfied', function (done) {
             User.find({order: 'seq', where: { vip: { "gte":  true}
             }}, function (err, users) {
                 should.not.exist(err);
@@ -474,7 +474,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support boolean "gt" that is not satisfied', function (done) {
+        it('should support boolean "gt" that is not satisfied', function (done) {
             User.find({order: 'seq', where: { vip: { "gt": true }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -483,7 +483,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support boolean "gt" that is satisfied', function (done) {
+        it('should support boolean "gt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { vip: { "gt": false }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -493,7 +493,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support boolean "lt" that is satisfied', function (done) {
+        it('should support boolean "lt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { vip: { "lt": true }
             }}, function (err, users) {
                 should.not.exist(err);
