@@ -25,7 +25,7 @@ describe('basic-querying', function () {
         setTimeout(function(){
             // no big reason to delay this ...
             // just want to give the feel that getSchema and automigrate are sequential actions
-        db.automigrate(done);
+            db.automigrate(done);
         }, 2000);
 
     });
@@ -108,7 +108,7 @@ describe('basic-querying', function () {
         });
     });
 
-    describe('findByIds', function () {
+    xdescribe('findByIds', function () {
         var createdUsers;
         before(function(done) {
             this.timeout(4000);
@@ -132,7 +132,7 @@ describe('basic-querying', function () {
             });
         });
 
-        it('should query by ids', function(done) {
+        xit('should query by ids', function(done) {
             this.timeout(4000);
             setTimeout(function(){
                 User.findByIds(
@@ -150,7 +150,7 @@ describe('basic-querying', function () {
             }, 2000);
         });
 
-        it('should query by ids and condition', function(done) {
+        xit('should query by ids and condition', function(done) {
             this.timeout(4000);
             setTimeout(function(){
                 User.findByIds([
@@ -184,7 +184,7 @@ describe('basic-querying', function () {
         it('should query collection', function (done) {
             this.timeout(4000);
             // NOTE: ES indexing then searching isn't real-time ... its near-real-time
-            setTimeout(function(){
+            setTimeout(function () {
                 User.find(function (err, users) {
                     should.exist(users);
                     should.not.exist(err);
@@ -360,7 +360,7 @@ describe('basic-querying', function () {
         });
 
         it('should support number "gte" that is satisfied', function (done) {
-            User.find({order: 'seq', where: { order: { "gte":  3}
+            User.find({order: 'seq', where: { order: { "gte": 3}
             }}, function (err, users) {
                 should.not.exist(err);
                 users.should.have.property('length', 4);
@@ -417,7 +417,7 @@ describe('basic-querying', function () {
         });
 
         xit('should support string "gte" that is satisfied by null value', function (done) {
-            User.find({order: 'seq', where: { name: { "gte":  null}
+            User.find({order: 'seq', where: { name: { "gte": null}
             }}, function (err, users) {
                 should.not.exist(err);
                 users.should.have.property('length', 0);
@@ -426,7 +426,7 @@ describe('basic-querying', function () {
         });
 
         it('should support string "gte" that is satisfied', function (done) {
-            User.find({order: 'seq', where: { name: { "gte":  'Paul McCartney'}
+            User.find({order: 'seq', where: { name: { "gte": 'Paul McCartney'}
             }}, function (err, users) {
                 should.not.exist(err);
                 users.should.have.property('length', 4);
@@ -465,7 +465,7 @@ describe('basic-querying', function () {
         });
 
         it('should support boolean "gte" that is satisfied', function (done) {
-            User.find({order: 'seq', where: { vip: { "gte":  true}
+            User.find({order: 'seq', where: { vip: { "gte": true}
             }}, function (err, users) {
                 should.not.exist(err);
                 users.should.have.property('length', 3);
@@ -503,52 +503,73 @@ describe('basic-querying', function () {
             });
         });
 
+    });
+
+    xdescribe('find', function () {
+
+        before(seed);
 
         xit('should only include fields as specified', function (done) {
-            var remaining = 0;
+            this.timeout(30000);
+            // NOTE: ES indexing then searching isn't real-time ... its near-real-time
+            setTimeout(function () {
+                var remaining = 0;
 
-            function sample(fields) {
+                function sample(fields) {
+                    console.log('expect: ', fields);
+                    return {
+                        expect: function (arr) {
+                            remaining++;
+                            User.find({fields: fields}, function (err, users) {
 
-                return {
-                    expect: function (arr) {
-                        remaining++;
-                        User.find({fields: fields}, function (err, users) {
+                                remaining--;
+                                if (err) {
+                                    return done(err);
+                                }
 
-                            remaining--;
-                            if (err) return done(err);
+                                should.exist(users);
+                                console.log('dfa ad asd asd asd as das das ad as sd asd as das ');
+                                console.log('remaining:', remaining);
 
-                            should.exists(users);
+                                if (remaining === 0) {
+                                    done();
+                                }
 
-                            if (remaining === 0) {
-                                done();
-                            }
+                                users.forEach(function (user) {
+                                    console.log('user:', JSON.stringify(user,null,0));
+                                    var obj = user.toObject();
+                                    console.log('obj:', JSON.stringify(obj,null,0));
 
-                            users.forEach(function (user) {
-                                var obj = user.toObject();
-
-                                Object.keys(obj)
-                                    .forEach(function (key) {
-                                        // if the obj has an unexpected value
-                                        if (obj[key] !== undefined && arr.indexOf(key) === -1) {
-                                            console.log('Given fields:', fields);
-                                            console.log('Got:', key, obj[key]);
-                                            console.log('Expected:', arr);
-                                            throw new Error('should not include data for key: ' + key);
-                                        }
-                                    });
+                                    Object.keys(obj)
+                                        .forEach(function (key) {
+                                            // if the obj has an unexpected value
+                                            console.log('key: ', key);
+                                            console.log('obj['+key+']:', obj[key]);
+                                            console.log('arr.indexOf(key): ', arr.indexOf(key));
+                                            /*console.log('obj[key] !== undefined && arr.indexOf(key) === -1',
+                                                (obj[key] !== undefined && arr.indexOf(key) === -1));*/
+                                            if (obj[key] !== undefined && arr.indexOf(key) === -1) {
+                                                console.log('Given fields:', fields);
+                                                console.log('Got:', key, obj[key]);
+                                                console.log('Expected:', arr);
+                                                throw new Error('should not include data for key: ' + key);
+                                            }
+                                        });
+                                });
                             });
-                        });
-                    }
+                        }
+                    };
                 }
-            }
 
-            sample({name: true}).expect(['name']);
-            sample({name: false}).expect(['id', 'seq', 'email', 'role', 'order', 'birthday', 'vip']);
-            sample({name: false, id: true}).expect(['id']);
-            sample({id: true}).expect(['id']);
-            sample('id').expect(['id']);
-            sample(['id']).expect(['id']);
-            sample(['email']).expect(['email']);
+                sample({name: false}).expect(['id', 'seq', 'email', 'role', 'order', 'birthday', 'vip']);
+                /*sample({name: true}).expect(['name']);
+                sample({name: false}).expect(['id', 'seq', 'email', 'role', 'order', 'birthday', 'vip']);
+                sample({name: false, id: true}).expect(['id']);
+                sample({id: true}).expect(['id']);
+                sample('id').expect(['id']);
+                sample(['id']).expect(['id']);
+                sample(['email']).expect(['email']);*/
+            }, 2000);
         });
 
     });
@@ -561,18 +582,17 @@ describe('basic-querying', function () {
             this.timeout(4000);
             // NOTE: ES indexing then searching isn't real-time ... its near-real-time
             setTimeout(function () {
-            User.count(function (err, n) {
-                should.not.exist(err);
-                should.exist(n);
-                n.should.equal(6);
-                done();
-            });
+                User.count(function (err, n) {
+                    should.not.exist(err);
+                    should.exist(n);
+                    n.should.equal(6);
+                    done();
+                });
             }, 2000);
         });
 
         it('should query filtered count', function (done) {
-            //User.count({role: 'lead'}, function (err, n) {
-            User.count({where:{role: 'lead'}}, function (err, n) {
+            User.count({role: 'lead'}, function (err, n) {
                 should.not.exist(err);
                 should.exist(n);
                 n.should.equal(2);
@@ -589,15 +609,15 @@ describe('basic-querying', function () {
             this.timeout(4000);
             // NOTE: ES indexing then searching isn't real-time ... its near-real-time
             setTimeout(function () {
-            User.all({order: 'id'}, function (err, users) {
-                User.findOne(function (e, u) {
-                    should.not.exist(e);
-                    should.exist(u);
+                User.all({order: 'id'}, function (err, users) {
+                    User.findOne(function (e, u) {
+                        should.not.exist(e);
+                        should.exist(u);
                         // NOTE: if `id: true` is not set explicitly when defining a model, there will be trouble!
-                    u.id.toString().should.equal(users[0].id.toString());
-                    done();
+                        u.id.toString().should.equal(users[0].id.toString());
+                        done();
+                    });
                 });
-            });
             }, 2000);
         });
 
@@ -655,19 +675,23 @@ describe('basic-querying', function () {
 
     });
 
-    xdescribe('exists', function () {
+    describe('exists', function () {
 
         before(seed);
 
         it('should check whether record exist', function (done) {
-            User.findOne(function (e, u) {
-                User.exists(u.id, function (err, exists) {
-                    should.not.exist(err);
-                    should.exist(exists);
-                    exists.should.be.ok;
-                    done();
+            this.timeout(4000);
+            // NOTE: ES indexing then searching isn't real-time ... its near-real-time
+            setTimeout(function () {
+                User.findOne(function (e, u) {
+                    User.exists(u.id, function (err, exists) {
+                        should.not.exist(err);
+                        should.exist(exists);
+                        exists.should.be.ok;
+                        done();
+                    });
                 });
-            });
+            }, 2000);
         });
 
         it('should check whether record not exist', function (done) {
@@ -682,22 +706,26 @@ describe('basic-querying', function () {
 
     });
 
-    xdescribe('destroyAll with where option', function () {
+    describe('destroyAll with where option', function () {
 
         before(seed);
 
         it('should only delete instances that satisfy the where condition', function (done) {
-            User.destroyAll({name: 'John Lennon'}, function () {
-                User.find({where: {name: 'John Lennon'}}, function (err, data) {
-                    should.not.exist(err);
-                    data.length.should.equal(0);
-                    User.find({where: {name: 'Paul McCartney'}}, function (err, data) {
+            this.timeout(4000);
+            // NOTE: ES indexing then searching isn't real-time ... its near-real-time
+            setTimeout(function () {
+                User.destroyAll({name: 'John Lennon'}, function () {
+                    User.find({where: {name: 'John Lennon'}}, function (err, data) {
                         should.not.exist(err);
-                        data.length.should.equal(1);
-                        done();
+                        data.length.should.equal(0);
+                        User.find({where: {name: 'Paul McCartney'}}, function (err, data) {
+                            should.not.exist(err);
+                            data.length.should.equal(1);
+                            done();
+                        });
                     });
                 });
-            });
+            }, 2000);
         });
 
     });
@@ -707,17 +735,21 @@ describe('basic-querying', function () {
         beforeEach(seed);
 
         it('should only update instances that satisfy the where condition', function (done) {
-            User.update({name: 'John Lennon'}, {name: 'John Smith'}, function () {
-                User.find({where: {name: 'John Lennon'}}, function (err, data) {
-                    should.not.exist(err);
-                    data.length.should.equal(0);
-                    User.find({where: {name: 'John Smith'}}, function (err, data) {
+            this.timeout(4000);
+            // NOTE: ES indexing then searching isn't real-time ... its near-real-time
+            setTimeout(function () {
+                User.update({name: 'John Lennon'}, {name: 'John Smith'}, function () {
+                    User.find({where: {name: 'John Lennon'}}, function (err, data) {
                         should.not.exist(err);
-                        data.length.should.equal(1);
-                        done();
+                        data.length.should.equal(0);
+                        User.find({where: {name: 'John Smith'}}, function (err, data) {
+                            should.not.exist(err);
+                            data.length.should.equal(1);
+                            done();
+                        });
                     });
                 });
-            });
+            }, 2000);
         });
 
         it('should update all instances without where', function (done) {
