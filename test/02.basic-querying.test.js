@@ -425,7 +425,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support string "gte" that is satisfied', function (done) {
+        it('should support string "gte" that is satisfied', function (done) {
             User.find({order: 'seq', where: { name: { "gte":  'Paul McCartney'}
             }}, function (err, users) {
                 should.not.exist(err);
@@ -435,7 +435,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support string "gt" that is not satisfied', function (done) {
+        it('should support string "gt" that is not satisfied', function (done) {
             User.find({order: 'seq', where: { name: { "gt": 'xyz' }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -444,7 +444,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support string "gt" that is satisfied', function (done) {
+        it('should support string "gt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { name: { "gt": 'Paul McCartney' }
             }}, function (err, users) {
                 should.not.exist(err);
@@ -454,7 +454,7 @@ describe('basic-querying', function () {
             });
         });
 
-        xit('should support string "lt" that is satisfied', function (done) {
+        it('should support string "lt" that is satisfied', function (done) {
             User.find({order: 'seq', where: { name: { "lt": 'Paul McCartney' }
             }}, function (err, users) {
                 should.not.exist(err);
