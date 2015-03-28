@@ -13,7 +13,7 @@ describe('basic-querying', function () {
 
         db = getSchema();
         User = db.define('User', {
-            seq: {type: Number, index: true},
+            seq: {type: Number, index: true, id: true},
             name: {type: String, index: true, sort: true},
             email: {type: String, index: true},
             birthday: {type: Date, index: true},
@@ -581,19 +581,24 @@ describe('basic-querying', function () {
         });
     });
 
-    xdescribe('findOne', function () {
+    describe('findOne', function () {
 
         before(seed);
 
         it('should find first record (default sort by id)', function (done) {
+            this.timeout(4000);
+            // NOTE: ES indexing then searching isn't real-time ... its near-real-time
+            setTimeout(function () {
             User.all({order: 'id'}, function (err, users) {
                 User.findOne(function (e, u) {
                     should.not.exist(e);
                     should.exist(u);
+                        // NOTE: if `id: true` is not set explicitly when defining a model, there will be trouble!
                     u.id.toString().should.equal(users[0].id.toString());
                     done();
                 });
             });
+            }, 2000);
         });
 
         it('should find first record', function (done) {
@@ -631,6 +636,15 @@ describe('basic-querying', function () {
 
         it('should work even when find by id', function (done) {
             User.findOne(function (e, u) {
+                //console.log(JSON.stringify(u));
+                // ESConnector.prototype.all +0ms model User filter {"where":{},"limit":1,"offset":0,"skip":0}
+                /*
+                 * Ideally, instead of always generating:
+                 *   filter {"where":{"id":0},"limit":1,"offset":0,"skip":0}
+                 * the id-literal should be replaced with the actual idName by loopback's core:
+                 *   filter {"where":{"seq":0},"limit":1,"offset":0,"skip":0}
+                 * in my opinion.
+                 */
                 User.findOne({where: {id: u.id}}, function (err, user) {
                     should.not.exist(err);
                     should.exist(user);
