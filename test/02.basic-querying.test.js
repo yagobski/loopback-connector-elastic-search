@@ -553,21 +553,26 @@ describe('basic-querying', function () {
 
     });
 
-    xdescribe('count', function () {
+    describe('count', function () {
 
         before(seed);
 
         it('should query total count', function (done) {
+            this.timeout(4000);
+            // NOTE: ES indexing then searching isn't real-time ... its near-real-time
+            setTimeout(function () {
             User.count(function (err, n) {
                 should.not.exist(err);
                 should.exist(n);
                 n.should.equal(6);
                 done();
             });
+            }, 2000);
         });
 
         it('should query filtered count', function (done) {
-            User.count({role: 'lead'}, function (err, n) {
+            //User.count({role: 'lead'}, function (err, n) {
+            User.count({where:{role: 'lead'}}, function (err, n) {
                 should.not.exist(err);
                 should.exist(n);
                 n.should.equal(2);
