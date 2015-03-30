@@ -730,6 +730,55 @@ describe('basic-querying', function () {
 
     });
 
+    describe('updateOrCreate ', function () {
+
+        beforeEach(seed);
+
+        it('should update existing model', function (done) {
+            this.timeout(6000);
+            // NOTE: ES indexing then searching isn't real-time ... its near-real-time
+            setTimeout(function () {
+                var beatle = {seq: 1, rating: 5};
+                User.updateOrCreate(beatle, function (err, instance) {
+                    should.not.exist(err);
+                    should.exist(instance);
+                    //instance.should.eql(beatle);
+                    setTimeout(function () {
+                        User.find({where: {seq: 1}}, function (err, data) {
+                            should.not.exist(err);
+                            //data.length.should.equal(0);
+                            console.log(data);
+                            data[0].rating.should.equal(beatle.rating);
+                            done();
+                        });
+                    }, 2000);
+                });
+            }, 2000);
+        });
+
+        it('should create a new model', function (done) {
+            this.timeout(6000);
+            // NOTE: ES indexing then searching isn't real-time ... its near-real-time
+            setTimeout(function () {
+                var beatlesFan = {seq: 6, name: 'Pulkit Singhal', order: 7, vip: false};
+                User.updateOrCreate(beatlesFan, function (err, instance) {
+                    should.not.exist(err);
+                    should.exist(instance);
+                    setTimeout(function () {
+                        User.find({where: {seq: instance.seq}}, function (err, data) {
+                            should.not.exist(err);
+                            data[0].seq.should.equal(beatlesFan.seq);
+                            data[0].name.should.equal(beatlesFan.name);
+                            data[0].order.should.equal(beatlesFan.order);
+                            data[0].vip.should.equal(beatlesFan.vip);
+                            done();
+                        });
+                    }, 2000);
+                });
+            }, 2000);
+        });
+    });
+
     xdescribe('updateAll ', function () {
 
         beforeEach(seed);
