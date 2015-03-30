@@ -779,6 +779,52 @@ describe('basic-querying', function () {
         });
     });
 
+    describe('updateAttributes', function () {
+
+        beforeEach(seed);
+
+        it('should update existing model', function (done) {
+            this.timeout(6000);
+            // NOTE: ES indexing then searching isn't real-time ... its near-real-time
+            setTimeout(function () {
+                var updateAttrs = {newField: 1, order: 999};
+                User.findById(1, function (err, user) {
+                    should.not.exist(err);
+                    should.exist(user);
+                    //user.id.should.equal(1);
+                    //user.seq.should.equal(1);
+                    should.exist(user.order);
+                    should.not.exist(user.newField);
+                    user.updateAttributes(updateAttrs, function (err, updatedUser) {
+                        should.not.exist(err);
+                        should.exist(updatedUser);
+                        should.exist(updatedUser.order);
+                        updatedUser.order.should.equal(updateAttrs.order);
+                        // TODO: should a new field be added by updateAttributes?
+                        // https://support.strongloop.com/requests/680
+                        should.exist(updatedUser.newField);
+                        updatedUser.newField.should.equal(updateAttrs.newField);
+                        setTimeout(function () {
+                            User.findById(1, function (err, userFetchedAgain) {
+                                console.log('333');
+                                should.not.exist(err);
+                                should.exist(userFetchedAgain);
+                                should.exist(userFetchedAgain.order);
+                                userFetchedAgain.order.should.equal(updateAttrs.order);
+                                // TODO: should a new field be added by updateAttributes?
+                                // https://support.strongloop.com/requests/680
+                                should.exist(userFetchedAgain.newField);
+                                userFetchedAgain.newField.should.equal(updateAttrs.newField);
+                                done();
+                            });
+                        }, 2000);
+                    });
+                });
+            }, 2000);
+        });
+
+    });
+
     xdescribe('updateAll ', function () {
 
         beforeEach(seed);
@@ -818,14 +864,14 @@ describe('basic-querying', function () {
         it('should ignore undefined values of data', function(done) {
             User.update({name: 'John Lennon'}, {name: undefined,
                 email: 'johnl@b3atl3s.co.uk'}, function(err) {
-                should.not.exist(err);
-                User.find({where: {name: 'John Lennon'}}, function(err, data) {
                     should.not.exist(err);
-                    data.length.should.equal(1);
-                    data[0].email.should.equal('johnl@b3atl3s.co.uk');
-                    done();
+                    User.find({where: {name: 'John Lennon'}}, function(err, data) {
+                        should.not.exist(err);
+                        data.length.should.equal(1);
+                        data[0].email.should.equal('johnl@b3atl3s.co.uk');
+                        done();
+                    });
                 });
-            });
         });
 
         it('should coerce data', function (done) {
