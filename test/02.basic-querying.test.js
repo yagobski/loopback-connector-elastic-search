@@ -146,10 +146,19 @@ describe('basic-querying', function () {
                         });
 
                         // TODO: Resolve the discussion around: https://support.strongloop.com/requests/676
-                        // Only findByIds() expects the results sorted by the ids as they are passed in the argument.
-                        // find() by default sorts by id property.
-                        /*names.should.eql(
-                            [createdUsers[2].name, createdUsers[1].name, createdUsers[0].name]);*/ // NOTE: order doesn't add up
+                        /**
+                         * 1) find() by default sorts by id property.
+                         * 2) findByIds() expects the results sorted by the ids as they are passed in the argument.
+                         *    i) Connector.prototype.all() should NOT deal with the rules for findByIds()
+                         *       as the sorting for findByIds() is done after the connector returned an array of objects.
+                         *    ii) Here is how findByIds() implemented:
+                         *        i) Build a query with inq for ids from the arg
+                         *        ii) Call Model.find() (no ordering is set, connectors will default it to id)
+                         *        iii) Sort the results by the order of ids in the arg
+                         *
+                         */
+                        /*names.should.eql( // NOTE: order doesn't add up, is 2.ii.iii broken?
+                            [createdUsers[2].name, createdUsers[1].name, createdUsers[0].name]);*/
 
                         // temporary workaround to help tests pass
                         names.should.include(createdUsers[2].name);
