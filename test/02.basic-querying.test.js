@@ -22,6 +22,16 @@ describe('basic-querying', function () {
             vip: {type: Boolean}
         });
 
+        Customer = db.define('Customer', {
+            objectId: {type: String, id: true, generated: true},
+            name: {type: String, index: true, sort: true},
+            email: {type: String, index: true},
+            birthday: {type: Date, index: true},
+            role: {type: String, index: true},
+            order: {type: Number, index: true, sort: true},
+            vip: {type: Boolean}
+        });
+
         setTimeout(function(){
             // no big reason to delay this ...
             // just want to give the feel that getSchema and automigrate are sequential actions
@@ -36,6 +46,59 @@ describe('basic-querying', function () {
                 should.not.exist(err);
                 done();
             });
+        });
+    });
+
+    describe('for a model with string IDs', function () {
+
+        beforeEach(seedCustomers);
+
+        it('should work for findById', function (done) {
+            this.timeout(4000);
+            setTimeout(function(){
+                Customer.findById('aaa', function (err, customer) {
+                    should.exist(customer);
+                    should.not.exist(err);
+                    console.log(customer);
+                    done();
+                });
+            }, 2000);
+        });
+
+        it('should work for updateAttributes', function (done) {
+            this.timeout(6000);
+            setTimeout(function () {
+                var updateAttrs = {newField: 1, order: 999};
+                Customer.findById('aaa', function (err, customer) {
+                    should.not.exist(err);
+                    should.exist(customer);
+                    should.exist(customer.order);
+                    should.not.exist(customer.newField);
+                    customer.updateAttributes(updateAttrs, function (err, updatedCustomer) {
+                        should.not.exist(err);
+                        should.exist(updatedCustomer);
+                        should.exist(updatedCustomer.order);
+                        updatedCustomer.order.should.equal(updateAttrs.order);
+                        // TODO: should a new field be added by updateAttributes?
+                        // https://support.strongloop.com/requests/680
+                        should.exist(updatedCustomer.newField);
+                        updatedCustomer.newField.should.equal(updateAttrs.newField);
+                        setTimeout(function () {
+                            Customer.findById('aaa', function (err, customerFetchedAgain) {
+                                should.not.exist(err);
+                                should.exist(customerFetchedAgain);
+                                should.exist(customerFetchedAgain.order);
+                                customerFetchedAgain.order.should.equal(updateAttrs.order);
+                                // TODO: should a new field be added by updateAttributes?
+                                // https://support.strongloop.com/requests/680
+                                should.exist(customerFetchedAgain.newField);
+                                customerFetchedAgain.newField.should.equal(updateAttrs.newField);
+                                done();
+                            });
+                        }, 2000);
+                    });
+                });
+            }, 2000);
         });
     });
 
@@ -868,6 +931,40 @@ function seed(done) {
         User.destroyAll.bind(User),
         function(cb) {
             async.each(beatles, User.create.bind(User), cb);
+        }
+    ], done);
+}
+
+function seedCustomers(done) {
+    var customers = [
+        {
+            objectId: 'aaa',
+            name: 'John Lennon',
+            email: 'john@b3atl3s.co.uk',
+            role: 'lead',
+            birthday: new Date('1980-12-08'),
+            order: 2,
+            vip: true
+        },
+        {
+            objectId: 'bbb',
+            name: 'Paul McCartney',
+            email: 'paul@b3atl3s.co.uk',
+            role: 'lead',
+            birthday: new Date('1942-06-18'),
+            order: 1,
+            vip: true
+        },
+        {objectId: 'ccc', name: 'George Harrison', order: 5, vip: false},
+        {objectId: 'ddd', name: 'Ringo Starr', order: 6, vip: false},
+        {objectId: 'eee', name: 'Pete Best', order: 4},
+        {objectId: 'fff', name: 'Stuart Sutcliffe', order: 3, vip: true}
+    ];
+
+    async.series([
+        Customer.destroyAll.bind(Customer),
+        function(cb) {
+            async.each(customers, Customer.create.bind(Customer), cb);
         }
     ], done);
 }
