@@ -15,7 +15,7 @@
     "defaultSize": 50,
     "requestTimeout": 30000,
     "ssl": {
-        "ca": "/Users/blah/blah/loopback-connector-elastic-search/cacert.pem",
+        "ca": "./../cacert.pem",
         "rejectUnauthorized": true
     },
     "mappings": [
