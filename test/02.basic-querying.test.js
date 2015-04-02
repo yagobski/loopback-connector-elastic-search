@@ -518,11 +518,12 @@ describe('basic-querying', function () {
     // TODO: there is no way for us to test the connector code explicitly
     //       if the underlying juggler performs the same work as well!
     //       https://support.strongloop.com/requests/679
-    xdescribe('find', function () {
+    //       https://github.com/strongloop-community/loopback-connector-elastic-search/issues/5
+    describe('find', function () {
 
         before(seed);
 
-        xit('should only include fields as specified', function (done) {
+        it('should only include fields as specified', function (done) {
             this.timeout(30000);
             // NOTE: ES indexing then searching isn't real-time ... its near-real-time
             setTimeout(function () {
@@ -541,30 +542,18 @@ describe('basic-querying', function () {
                                 }
 
                                 should.exist(users);
-                                console.log('dfa ad asd asd asd as das das ad as sd asd as das ');
-                                console.log('remaining:', remaining);
+                                console.log(JSON.stringify(users,null,2));
 
                                 if (remaining === 0) {
                                     done();
                                 }
 
                                 users.forEach(function (user) {
-                                    console.log('user:', JSON.stringify(user,null,0));
                                     var obj = user.toObject();
-                                    console.log('obj:', JSON.stringify(obj,null,0));
-
                                     Object.keys(obj)
                                         .forEach(function (key) {
                                             // if the obj has an unexpected value
-                                            console.log('key: ', key);
-                                            console.log('obj['+key+']:', obj[key]);
-                                            console.log('arr.indexOf(key): ', arr.indexOf(key));
-                                            /*console.log('obj[key] !== undefined && arr.indexOf(key) === -1',
-                                                (obj[key] !== undefined && arr.indexOf(key) === -1));*/
                                             if (obj[key] !== undefined && arr.indexOf(key) === -1) {
-                                                console.log('Given fields:', fields);
-                                                console.log('Got:', key, obj[key]);
-                                                console.log('Expected:', arr);
                                                 throw new Error('should not include data for key: ' + key);
                                             }
                                         });
@@ -574,7 +563,7 @@ describe('basic-querying', function () {
                     };
                 }
 
-                sample({name: false}).expect(['id', 'seq', 'email', 'role', 'order', 'birthday', 'vip']);
+                sample({email: false}).expect(['id', 'seq', 'name', 'role', 'order', 'birthday', 'vip']);
                 /*sample({name: true}).expect(['name']);
                 sample({name: false}).expect(['id', 'seq', 'email', 'role', 'order', 'birthday', 'vip']);
                 sample({name: false, id: true}).expect(['id']);
