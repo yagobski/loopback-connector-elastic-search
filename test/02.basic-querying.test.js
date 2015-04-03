@@ -838,6 +838,8 @@ describe('basic-querying', function () {
                 User.updateOrCreate(beatlesFan, function (err, instance) {
                     should.not.exist(err);
                     should.exist(instance);
+                    should.exist(instance.id);
+                    should.exist(instance.seq);
                     setTimeout(function () {
                         User.find({where: {seq: instance.seq}}, function (err, data) {
                             should.not.exist(err);
@@ -902,6 +904,7 @@ describe('basic-querying', function () {
 });
 
 function seed(done) {
+    this.timeout(4000);
     var beatles = [
         {
             seq: 0,
@@ -930,12 +933,15 @@ function seed(done) {
     async.series([
         User.destroyAll.bind(User),
         function(cb) {
-            async.each(beatles, User.create.bind(User), cb);
+            setTimeout(function () {
+                async.each(beatles, User.create.bind(User), cb);
+            }, 2000);
         }
     ], done);
 }
 
 function seedCustomers(done) {
+    this.timeout(4000);
     var customers = [
         {
             objectId: 'aaa',
@@ -964,7 +970,9 @@ function seedCustomers(done) {
     async.series([
         Customer.destroyAll.bind(Customer),
         function(cb) {
-            async.each(customers, Customer.create.bind(Customer), cb);
+            setTimeout(function () {
+                async.each(customers, Customer.create.bind(Customer), cb);
+            }, 2000);
         }
     ], done);
 }
