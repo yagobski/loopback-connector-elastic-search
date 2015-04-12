@@ -1,5 +1,7 @@
 # loopback-connector-elastic-search
 
+[![Join the chat at https://gitter.im/strongloop-community/loopback-connector-elastic-search](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/strongloop-community/loopback-connector-elastic-search?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/node-js/loopback/).
 
 NOTE: You can configure the index name for your ES instance and the model name is automatically mapped as the ES type.
