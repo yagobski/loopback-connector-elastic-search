@@ -259,6 +259,35 @@ describe('basic-querying', function () {
 
     });
 
+    describe('sanity test IDs', function () {
+
+        before(function (done) {
+            User.destroyAll(done);
+        });
+
+        it('should auto generate an id', function (done) {
+            this.timeout(4000);
+            User.create(function (err, u) {
+                should.not.exist(err);
+                should.exist(u.id);
+                should.exist(u.seq);
+                done();
+            });
+        });
+
+        it('should use specified id', function (done) {
+            this.timeout(4000);
+            User.create({seq:666}, function (err, u) {
+                should.not.exist(err);
+                should.exist(u.id);
+                should.exist(u.seq);
+                u.id.should.equal('666');
+                u.seq.should.equal('666');
+                done();
+            });
+        });
+    });
+
     describe('find', function () {
 
         before(seed);
