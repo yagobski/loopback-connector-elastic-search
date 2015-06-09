@@ -16,7 +16,7 @@ NOTE: You can configure the index name for your ES instance and the model name i
 
   ```
 "<ConnectorEntry>": {
-    "connector": "elasticsearch",
+    "connector": "es",
     "name": "<name>",
     "index": "<index>",
     "hosts": [
