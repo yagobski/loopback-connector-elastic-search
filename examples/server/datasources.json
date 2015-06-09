@@ -5,7 +5,7 @@
     },
     "elasticsearch-plain": {
         "name": "elasticsearch-plain",
-        "connector": "elasticsearch",
+        "connector": "es",
         "index": "shakespeare",
         "hosts": [
             {
@@ -20,7 +20,7 @@
     },
     "elasticsearch-ssl": {
       "name": "elasticsearch-ssl",
-      "connector": "elasticsearch",
+      "connector": "es",
       "index": "shakespeare",
       "hosts": [
         {
