@@ -96,13 +96,26 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 1. Install dependencies and start the example server
 
   ```
-cd examples
-npm install
+  git clone https://github.com/strongloop-community/loopback-connector-elastic-search.git myEsConnector
+  cd myEsConnector/examples
+  npm install
   ```
 2. [Configure the connector](#configuring-connector)
-3. Run `node server/server.js`
-4. Open this URL in your browser: http://localhost:3000/explorer
-5. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
+3. Set up a `cacert.pem` file for communicating securely (https) with your ES instance. Download the certificate chain for your ES server using this **sample** (will need to be edited to *use* your provider) command:
+
+  ```
+  cd myEsConnector
+  openssl s_client -connect my.es.cluster.com:9243 -showcerts | tee cacert.pem
+  ```
+  It will be saved at the base of your cloned project.
+4. Run:
+
+  ```
+  cd myEsConnector/examples
+  node server/server.js
+  ```
+5. Open this URL in your browser: http://localhost:3000/explorer
+6. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
 
 ## Hosted ElasticSearch
 Services that provide ES as a hosted solution and offer an indefinite free plan for tinkering with ES:
