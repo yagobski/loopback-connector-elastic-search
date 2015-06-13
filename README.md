@@ -115,7 +115,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   cd myEsConnector/examples
   node server/server.js
   ```
-5. Open this URL in your browser: http://localhost:3000/explorer
+5. Open this URL in your browser: [http://localhost:3000/explorer](http://localhost:3000/explorer)
 6. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
 
 ## Hosted ElasticSearch
