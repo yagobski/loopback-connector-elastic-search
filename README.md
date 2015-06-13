@@ -4,7 +4,20 @@
 
 Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/node-js/loopback/).
 
-NOTE: You can configure the index name for your ES instance and the model name is automatically mapped as the ES type.
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [loopback-connector-elastic-search](#loopback-connector-elastic-search)
+  - [Install connector from NPM](#install-connector-from-npm)
+  - [Configuring connector](#configuring-connector)
+  - [Required:](#required)
+  - [Optional:](#optional)
+  - [Run example](#run-example)
+  - [Hosted ElasticSearch](#hosted-elasticsearch)
+  - [Release notes](#release-notes)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Install connector from NPM
 
@@ -49,6 +62,17 @@ NOTE: You can configure the index name for your ES instance and the model name i
 }
   ```
 2. You can peek at `/examples/server/datasources.json` for more hints.
+3. Services that provide ES as a hosted solution and offer an indefinite free plan for tinkering with ES:
+  1. https://app.bonsai.io/plans
+    * $0 per month
+    * 1GB memory, 1GB storage
+    * no CC required
+  2. https://facetflow.com/#plans
+    * $0/month
+    * 5,000 documents, 500 MB storage
+    * 1 primary shard, 0 replicas
+    * Sandbox (not for production use)
+  3. `Free + Hosted` translates to quick success in the quest to learn ES.
 
 Required:
 ---------
@@ -81,8 +105,22 @@ node server/server.js
 2. Open this URL in your browser: http://localhost:3000/explorer
 3. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
 
+## Hosted ElasticSearch
+Services that provide ES as a hosted solution and offer an indefinite free plan for tinkering with ES:
+  1. https://app.bonsai.io/plans
+    * $0 per month
+    * 1GB memory, 1GB storage
+    * no CC required
+  2. https://facetflow.com/#plans
+    * $0/month
+    * 5,000 documents, 500 MB storage
+    * 1 primary shard, 0 replicas
+    * Sandbox (not for production use)
+  3. `Free + Hosted` translates to quick success in the quest to learn ES.
+
 ## Release notes
 
+  * For this connector, you can configure an `index` name for your ES instance and the loopback model's name is conveniently/automatically mapped as the ES `type`.
   * Users must setup `string` fields as `not_analyzed` by default for predictable matches just like other loopback backends. And if more flexibility is required, multi-field mappings can be used too.
 
     ```
