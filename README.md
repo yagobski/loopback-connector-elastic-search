@@ -11,8 +11,8 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 - [loopback-connector-elastic-search](#loopback-connector-elastic-search)
   - [Install connector from NPM](#install-connector-from-npm)
   - [Configuring connector](#configuring-connector)
-  - [Required:](#required)
-  - [Optional:](#optional)
+    - [Required:](#required)
+    - [Optional:](#optional)
   - [Run example](#run-example)
   - [Hosted ElasticSearch](#hosted-elasticsearch)
   - [Release notes](#release-notes)
@@ -75,7 +75,6 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   3. `Free + Hosted` translates to quick success in the quest to learn ES.
 
 ### Required:
----------
 - **host:** Elasticsearch engine host address.
 - **port:** Elasticsearch engine port.
 - **name:** Connector name.
@@ -83,7 +82,6 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 - **index:** Search engine specific index.
 
 ### Optional:
----------
 - **apiVersion:** specify the major version of the Elasticsearch nodes you will be connecting to.
 - **log:** logging option.
 - **defaultSize:** total number of results to return per page.
