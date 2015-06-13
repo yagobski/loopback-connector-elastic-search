@@ -101,6 +101,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   npm install
   ```
 2. [Configure the connector](#configuring-connector)
+  * Don't forget to create an index in your ES instance: `curl -X POST https://username:password@my.es.cluster.com:9243/shakespeare`
 3. Set up a `cacert.pem` file for communicating securely (https) with your ES instance. Download the certificate chain for your ES server using this **sample** (will need to be edited to *use* your provider) command:
 
   ```
