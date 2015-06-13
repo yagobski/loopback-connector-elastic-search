@@ -74,7 +74,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
     * Sandbox (not for production use)
   3. `Free + Hosted` translates to quick success in the quest to learn ES.
 
-Required:
+### Required:
 ---------
 - **host:** Elasticsearch engine host address.
 - **port:** Elasticsearch engine port.
@@ -82,7 +82,7 @@ Required:
 - **connector:** Elasticsearch driver.
 - **index:** Search engine specific index.
 
-Optional:
+### Optional:
 ---------
 - **apiVersion:** specify the major version of the Elasticsearch nodes you will be connecting to.
 - **log:** logging option.
