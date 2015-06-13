@@ -98,10 +98,11 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   ```
 cd examples
 npm install
-node server/server.js
   ```
-2. Open this URL in your browser: http://localhost:3000/explorer
-3. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
+2. [Configure the connector](#configuring-connector)
+3. Run `node server/server.js`
+4. Open this URL in your browser: http://localhost:3000/explorer
+5. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
 
 ## Hosted ElasticSearch
 Services that provide ES as a hosted solution and offer an indefinite free plan for tinkering with ES:
