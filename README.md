@@ -101,7 +101,8 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   npm install
   ```
 2. [Configure the connector](#configuring-connector)
-  * Don't forget to create an index in your ES instance: `curl -X POST https://username:password@my.es.cluster.com:9243/shakespeare`
+  * Don't forget to create an index in your ES instance: `curl -X POST https://username:password@my.es.cluster.com/shakespeare`
+  * If you mess up and want to delete, you can use: `curl -X DELETE https://username:password@my.es.cluster.com/shakespeare`
 3. Set up a `cacert.pem` file for communicating securely (https) with your ES instance. Download the certificate chain for your ES server using this **sample** (will need to be edited to *use* your provider) command:
 
   ```
@@ -113,9 +114,12 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 
   ```
   cd myEsConnector/examples
-  node server/server.js
+  DEBUG=boot:test:* node server/server.js
   ```
+  * The `examples/server/boot/boot.js` file will automatically populate data for UserModels on your behalf when the server starts.
 5. Open this URL in your browser: [http://localhost:3000/explorer](http://localhost:3000/explorer)
+  * Try fetching all the users via the rest api console
+  * You can dump all the data from your ES index, via cmd-line too: `curl -X POST username:password@my.es.cluster.com/shakespeare/_search -d '{"query": {"match_all": {}}}'`
 6. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
 
 ## Hosted ElasticSearch
