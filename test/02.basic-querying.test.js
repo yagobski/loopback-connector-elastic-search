@@ -30,6 +30,10 @@ describe('basic-querying', function () {
             role: {type: String, index: true},
             order: {type: Number, index: true, sort: true},
             vip: {type: Boolean}
+        }, {
+            elasticsearch: {
+                type: 'Customer' // could set override here
+            }
         });
 
         setTimeout(function(){
