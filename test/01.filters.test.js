@@ -41,6 +41,9 @@ describe('Connector', function () {
         expect(filterCriteria).to.have.property('body')
             .that.is.an('object')
             .that.deep.equals({
+                sort: [
+                  'id'
+                ],
                 query: {
                     bool: {
                         must: [
