@@ -55,10 +55,32 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
                 "realm": {"type": "string", "index" : "not_analyzed" },
                 "username": {"type": "string", "index" : "not_analyzed" },
                 "password": {"type": "string", "index" : "not_analyzed" },
-                "email": {"type": "string", "index" : "not_analyzed" }
+                "email": {"type": "string", "analyzer" : "email" }
             }
         }
-    ]
+    ],
+    "settings": {
+      "analysis": {
+        "filter": {
+          "email": {
+            "type": "pattern_capture",
+            "preserve_original": 1,
+            "patterns": [
+              "([^@]+)",
+              "(\\p{L}+)",
+              "(\\d+)",
+              "@(.+)"
+            ]
+          }
+        },
+        "analyzer": {
+          "email": {
+            "tokenizer": "uax_url_email",
+            "filter": ["email", "lowercase", "unique"]
+          }
+        }
+      }
+    }
 }
   ```
 2. You can peek at `/examples/server/datasources.json` for more hints.
@@ -87,7 +109,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 - **defaultSize:** total number of results to return per page.
 - **requestTimeout:** this value is in milliseconds
 - **ssl:** useful for setting up a secure channel
-- **protocol:** can be `http` or `https` (`http` is the default if none specified) ... *must* be `https` if you're using `ssl` 
+- **protocol:** can be `http` or `https` (`http` is the default if none specified) ... *must* be `https` if you're using `ssl`
 - **auth**: useful if you have access control setup via services like `es-jetty` or `found` or `shield`
 - **mappings:** an array of elasticsearch mappings for your various loopback models
 
