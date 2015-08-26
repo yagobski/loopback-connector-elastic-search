@@ -132,16 +132,12 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 
 ## Hosted ElasticSearch
 Services that provide ES as a hosted solution and offer an indefinite free plan for tinkering with ES:
-  1. https://app.bonsai.io/plans
-    * $0 per month
-    * 1GB memory, 1GB storage
-    * no CC required
-  2. https://facetflow.com/#plans
+  1. https://facetflow.com/#plans
     * $0/month
     * 5,000 documents, 500 MB storage
     * 1 primary shard, 0 replicas
     * Sandbox (not for production use)
-  3. `Free + Hosted` translates to quick success in the quest to learn ES.
+  1. `Free + Hosted` translates to quick success in the quest to learn ES.
 
 ## Release notes
 
