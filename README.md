@@ -111,7 +111,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   ```
   1. The command may not self terminate so you may need to use `ctrl+c`
   2. It will be saved at the base of your cloned project
-  3. Sometime extra data is added to the file, you should delete everything after the following lines:
+  3. Sometimes extra data is added to the file, you should delete everything after the following lines:
 
     ```
     ---
