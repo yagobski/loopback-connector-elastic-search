@@ -109,7 +109,15 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   cd myEsConnector
   openssl s_client -connect my.es.cluster.com:9243 -showcerts | tee cacert.pem
   ```
-  It will be saved at the base of your cloned project.
+  1. The command may not self terminate so you may need to use `ctrl+c`
+  2. It will be saved at the base of your cloned project
+  3. Sometime extra data is added to the file, you should delete everything after the following lines:
+
+    ```
+    ---
+    No client certificate CA names sent
+    ---
+    ```
 4. Run:
 
   ```
