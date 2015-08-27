@@ -7,6 +7,10 @@ describe('Connector', function () {
         settings.log = 'error';
         var datasource = getDataSource(settings);
         testConnector = datasource.connector;
+
+        /*MockLoopbackModel = */datasource.define('MockLoopbackModel', {
+            id: {type: String, generated: true, id: true}
+        });
     });
 
     it('should configure defaults when building filters', function (done) {

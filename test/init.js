@@ -1,5 +1,13 @@
 'use strict';
 
+/**
+ * Why does this file exist?
+ *
+ * Individual tests can load the datasource, and avoid repetition, by adding:
+ *   `require('./init.js');`
+ * of their source code.
+ */
+
 var chai = require('chai');
 global.expect = chai.expect;
 global.assert = chai.assert;
@@ -13,8 +21,12 @@ global.getSettings = function() {
 };
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
-global.getDataSource = global.getSchema = global.getConnector = function (customConfig) {
-    var settings = getSettings();
+global.getDataSource = global.getSchema = global.getConnector = function (customSettings) {
+    (customSettings)
+        ? console.log('\n\tcustomSettings will override global settings for datasource\n'/*, JSON.stringify(customSettings,null,2)*/)
+        : console.log('\n\twill use global settings for datasource\n');
+    var settings = customSettings || getSettings();
+    //console.log('\n\tsettings:\n', JSON.stringify(settings,null,2));
     settings.connector =  require('../');
     return new DataSource(settings);
 };
