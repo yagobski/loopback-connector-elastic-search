@@ -27,8 +27,8 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 1. `examples` directory has a loopback app which uses this connector
   1. this is not published to NPM, it is only here for demo purposes
     1. it will not be downloaded to your `node_modules` folder!
-    1. similarly the `example/server/datasources.json` file is there for this demo app to use
-    1. you can copy it over to your `<yourApp>/server/datasources.json` if you want and edit it there but don't start editing `example/server/datasources.json` itself and expect changes to take place in your app!
+    1. similarly the `examples/server/datasources.json` file is there for this demo app to use
+    1. you can copy it over to your `<yourApp>/server/datasources.json` if you want and edit it there but don't start editing `examples/server/datasources.json` itself and expect changes to take place in your app!
 1. `test` directory has unit tests
   1. it does not reuse the loopback app from the `examples` folder
   1. instead, loopback and ES/datasource are built and injected programatically
@@ -139,6 +139,7 @@ npm install loopback-connector-es --save --save-exact
 2. [Configure the connector](#configuring-connector)
   * Don't forget to create an index in your ES instance: `curl -X POST https://username:password@my.es.cluster.com/shakespeare`
   * If you mess up and want to delete, you can use: `curl -X DELETE https://username:password@my.es.cluster.com/shakespeare`
+  * Don't forget to set a [valid value](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-api-version) for `apiVersion` field in `examples/server/datasources.json` that matches the version of ES you are running.
 3. Set up a `cacert.pem` file for communicating securely (https) with your ES instance. Download the certificate chain for your ES server using this **sample** (will need to be edited to *use* your provider) command:
 
   ```
