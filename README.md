@@ -14,7 +14,6 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   - [Required properties](#required)
   - [Optional properties](#optional)
 - [Run example](#run-example)
-- [Hosted ElasticSearch](#hosted-elasticsearch)
 - [Contributing](#contributing)
 - [Release notes](#release-notes)
 
@@ -109,13 +108,6 @@ npm install loopback-connector-es --save --save-exact
 }
   ```
 2. You can peek at `/examples/server/datasources.json` for more hints.
-3. Services that provide ES as a hosted solution and offer an indefinite free plan for tinkering with ES:
-  1. https://facetflow.com/#plans
-    * $0/month
-    * 5,000 documents, 500 MB storage
-    * 1 primary shard, 0 replicas
-    * Sandbox (not for production use)
-  1. `Free + Hosted` translates to quick success in the quest to learn ES.
 
 ### Required:
 - **host:** Elasticsearch engine host address.
@@ -172,15 +164,6 @@ npm install loopback-connector-es --save --save-exact
   * Try fetching all the users via the rest api console
   * You can dump all the data from your ES index, via cmd-line too: `curl -X POST username:password@my.es.cluster.com/shakespeare/_search -d '{"query": {"match_all": {}}}'`
 6. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
-
-## Hosted ElasticSearch
-Services that provide ES as a hosted solution and offer an indefinite free plan for tinkering with ES:
-  1. https://facetflow.com/#plans
-    * $0/month
-    * 5,000 documents, 500 MB storage
-    * 1 primary shard, 0 replicas
-    * Sandbox (not for production use)
-  1. `Free + Hosted` translates to quick success in the quest to learn ES.
 
 ## Contributing
 
