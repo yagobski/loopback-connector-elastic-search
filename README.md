@@ -9,7 +9,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Overview](#overview)
-- [Install connector from NPM](#install-connector-from-npm)
+- [Install this connector in your loopback app](#install-this-connector-in-your-loopback-app)
 - [Configuring connector](#configuring-connector)
   - [Required properties](#required)
   - [Optional properties](#optional)
@@ -34,11 +34,19 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   1. instead, loopback and ES/datasource are built and injected programatically
   1. this directory is not published to NPM.
     1. Refer to `.npmignore` if you're still confused about what's part of the *published* connector and what's not.
-1. 
+1. You will find the `datasources.json` files in this repo mention various named configurations:
+  1. `elasticsearch-ssl`
+  2. `elasticsearch-plain`
+  3. `db`
+  4. You don't need them all! They are just examples to help you see the various ways in which you can configure a datasource. Delete the ones you don't need and keep the one you want. For example, most people will start off with `elasticsearch-plain` and then move on to configuring the additional properties that are exemplified in `elasticsearch-ssl`. You can mix & match if you'd like to have mongo and es and memory, all three! These are basics of the "connector" framework in loooback and not something we added.
+1. Don't forget to edit your `model-config.json` file and point the models at the datasource you want to use. It should be whichever one you've taken the time to properly configure and gotten working: `elasticsearch-ssl` or `elasticsearch-plain`
 
-## Install connector from NPM
+## Install this connector in your loopback app
 
-    npm install loopback-connector-es --save
+```
+cd <yourApp>
+npm install loopback-connector-es --save --save-exact
+```
 
 ## Configuring connector
 
