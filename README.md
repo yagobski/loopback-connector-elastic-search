@@ -8,15 +8,33 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+- [Overview](#overview)
 - [Install connector from NPM](#install-connector-from-npm)
 - [Configuring connector](#configuring-connector)
   - [Required properties](#required)
   - [Optional properties](#optional)
 - [Run example](#run-example)
 - [Hosted ElasticSearch](#hosted-elasticsearch)
+- [Contributing](#contributing)
 - [Release notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Overview
+
+1. `lib` directory has the entire source code for this connector
+  1. this is what gets downloaded to your `node_modules` folder when you run `npm install loopback-connector-es --save --save-exact`
+1. `examples` directory has a loopback app which uses this connector
+  1. this is not published to NPM, it is only here for demo purposes
+    1. it will not be downloaded to your `node_modules` folder!
+    1. similarly the `example/server/datasources.json` file is there for this demo app to use
+    1. you can copy it over to your `<yourApp>/server/datasources.json` if you want and edit it there but don't start editing `example/server/datasources.json` itself and expect changes to take place in your app!
+1. `test` directory has unit tests
+  1. it does not reuse the loopback app from the `examples` folder
+  1. instead, loopback and ES/datasource are built and injected programatically
+  1. this directory is not published to NPM.
+    1. Refer to `.npmignore` if you're still confused about what's part of the *published* connector and what's not.
+1. 
 
 ## Install connector from NPM
 
@@ -155,6 +173,10 @@ Services that provide ES as a hosted solution and offer an indefinite free plan 
     * 1 primary shard, 0 replicas
     * Sandbox (not for production use)
   1. `Free + Hosted` translates to quick success in the quest to learn ES.
+
+## Contributing
+
+Feel free to [contribute via PR](https://github.com/strongloop-community/loopback-connector-elastic-search/pulls) or [open an issue](https://github.com/strongloop-community/loopback-connector-elastic-search/issues) for discussion or jump into the [gitter chat room](https://gitter.im/strongloop-community/loopback-connector-elastic-search) if you have ideas.
 
 ## Release notes
 
