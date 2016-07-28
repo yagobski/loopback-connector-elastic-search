@@ -8,14 +8,13 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [loopback-connector-elastic-search](#loopback-connector-elastic-search)
-  - [Install connector from NPM](#install-connector-from-npm)
-  - [Configuring connector](#configuring-connector)
-    - [Required:](#required)
-    - [Optional:](#optional)
-  - [Run example](#run-example)
-  - [Hosted ElasticSearch](#hosted-elasticsearch)
-  - [Release notes](#release-notes)
+- [Install connector from NPM](#install-connector-from-npm)
+- [Configuring connector](#configuring-connector)
+  - [Required properties](#required)
+  - [Optional properties](#optional)
+- [Run example](#run-example)
+- [Hosted ElasticSearch](#hosted-elasticsearch)
+- [Release notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
