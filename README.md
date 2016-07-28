@@ -15,6 +15,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   - [Optional properties](#optional)
 - [Run example](#run-example)
 - [Troubleshooting](#troubleshooting)
+- [Developers](#developers)
 - [Contributing](#contributing)
 - [Release notes](#release-notes)
 
@@ -182,6 +183,29 @@ npm install loopback-connector-es --save --save-exact
   cd <yourApp>
   ```
   and test. This can easily get washed away so for more permanent fixes, please report it by [Contributing](#contributing).
+
+## Developers
+
+As a developer, you may want a short lived ES instance that is easy to tear down when you're finished dev testing. We recommend docker to facilitate this.
+
+**Pre-requisites**
+You will need [docker-engine](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/) installed on your system.
+
+**Step-1**
+- Set desired versions for **node** and **Elasticsearch**
+```
+export NODE_VERSION=0.10.46
+export ES_VERSION=1
+```
+**Step-2**
+- Run the setup with `docker-compose` commands.
+
+```
+git clone https://github.com/strongloop-community/loopback-connector-elastic-search.git myEsConnector
+cd myEsConnector/examples
+npm install
+docker-compose up
+```
 
 ## Contributing
 
