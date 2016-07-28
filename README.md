@@ -192,7 +192,9 @@ As a developer, you may want a short lived ES instance that is easy to tear down
 You will need [docker-engine](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/) installed on your system.
 
 **Step-1**
-- Set desired versions for **node** [refer here](https://hub.docker.com/r/library/node/tags/) and **Elasticsearch** [refer here](https://hub.docker.com/r/library/elasticsearch/tags/)
+- Set desired versions for **node** and **Elasticsearch**
+  - here are the [valid values](https://hub.docker.com/r/library/node/tags/) to use for  **Node**
+  - here are the [valid values](https://hub.docker.com/r/library/elasticsearch/tags/) to use for  **Elasticsearch**
 ```
 export NODE_VERSION=0.10.46
 export ES_VERSION=1
