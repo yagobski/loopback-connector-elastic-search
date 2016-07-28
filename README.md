@@ -196,8 +196,18 @@ You will need [docker-engine](https://docs.docker.com/engine/installation/) and 
   - here are the [valid values](https://hub.docker.com/r/library/node/tags/) to use for  **Node**
   - here are the [valid values](https://hub.docker.com/r/library/elasticsearch/tags/) to use for  **Elasticsearch**
 ```
+# combination of node v0.10.46 with elasticsearch v1
 export NODE_VERSION=0.10.46
 export ES_VERSION=1
+echo 'NODE_VERSION' $NODE_VERSION && echo 'ES_VERSION' $ES_VERSION
+
+# similarly feel free to try relevant combinations:
+## of node v0.10.46 with elasticsearch v2
+## of node v0.12 with elasticsearch v2
+## of node v0.4 with elasticsearch v2
+## of node v5 with elasticsearch v2
+## elasticsearch v5 will probably not work as there isn't an `elasticsearch` client for it, as of this writing
+## etc.
 ```
 **Step-2**
 - Run the setup with `docker-compose` commands.
