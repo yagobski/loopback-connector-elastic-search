@@ -14,6 +14,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   - [Required properties](#required)
   - [Optional properties](#optional)
 - [Run example](#run-example)
+- [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [Release notes](#release-notes)
 
@@ -164,6 +165,22 @@ npm install loopback-connector-es --save --save-exact
   * Try fetching all the users via the rest api console
   * You can dump all the data from your ES index, via cmd-line too: `curl -X POST username:password@my.es.cluster.com/shakespeare/_search -d '{"query": {"match_all": {}}}'`
 6. To test a specific filter via GET method, use for example: `{"q" : "friends, romans, countrymen"}`
+
+## Troubleshooting
+
+1. Do you have both `elasticsearch-ssl` and `elasticsearch-plain` in your `datasources.json` file? You just need one of them (not both), based on how you've setup your ES instance.
+1. Did you forget to set `model-config.json` to point at the datasource you configured? Maybe you are using a different or misspelled name than what you thought you had!
+1. Did you forget to set a [valid value](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-api-version) for `apiVersion` field in `datasources.json` that matches the version of ES you are running?
+1. Maybe the version of ES you are using isn't supported by the client that this project uses. Try removing the `elasticsearch` sub-dependency from `<yourApp>/node_modules/loopback-connector-es/node_modules` folder and then install the latest client:
+
+  ```
+  cd <yourApp>/node_modules/loopback-connector-es/node_modules
+  rm -rf elasticsearch
+  npm install --save --save-exact https://github.com/elastic/elasticsearch-js.git
+  cat elasticsearch/package.json | grep -A 5 supported_es_branches
+  cd <yourApp>
+  ```
+  and test. This can easily get washed away so for more permanent fixes, please report it by [Contributing](#contributing).
 
 ## Contributing
 
