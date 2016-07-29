@@ -16,6 +16,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 - [Run example](#run-example)
 - [Troubleshooting](#troubleshooting)
 - [Developers](#developers)
+- [Testing](#testing)
 - [Contributing](#contributing)
 - [Release notes](#release-notes)
 
@@ -218,6 +219,21 @@ cd myEsConnector/examples
 npm install
 docker-compose up
 ```
+
+## Testing
+
+1. You can edit `test/resource/datasource-test.json` to point at your ES instance and then run `npm test`
+1. If you don't have an ES instance and want to leverage docker based ES instances then:
+  1. Start elasticsearch version 1.x and 2.x using: `docker-compose -f docker-compose-for-tests.yml up`
+  1. Edit the code to pick which datasource you want to test against in `test/init.js`:
+
+  ```
+  var settings = require('./resource/datasource-test.json'); // comment this out if you'll be using either of the following
+  //var settings = require('./resource/datasource-test-v1-plain.json');
+  //var settings = require('./resource/datasource-test-v2-plain.json');
+  ```
+  1. Then run `npm test`
+  2. When you're finished and want to tear down the docker instances, run: `docker-compose -f docker-compose-for-tests.yml down`
 
 ## Contributing
 
