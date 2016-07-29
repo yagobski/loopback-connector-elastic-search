@@ -16,6 +16,8 @@ global.should = chai.should(); // Why is the function being executed? Because th
 global._ = require('lodash');
 
 var settings = require('./resource/datasource-test.json');
+//var settings = require('./resource/datasource-test-v1-plain.json');
+//var settings = require('./resource/datasource-test-v2-plain.json');
 global.getSettings = function() {
     return _.cloneDeep(settings);
 };
