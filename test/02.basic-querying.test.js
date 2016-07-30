@@ -23,7 +23,7 @@ describe('basic-querying', function () {
         });
 
         Customer = db.define('Customer', {
-            objectId: {type: String, id: true, generated: true},
+            objectId: {type: String, id: true, generated: false},
             name: {type: String, index: true, sort: true},
             email: {type: String, index: true},
             birthday: {type: Date, index: true},

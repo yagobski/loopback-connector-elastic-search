@@ -272,6 +272,7 @@ docker-compose up
 1. How do we get elasticserch to take over ID generation?
   1. An automatically generated id-like field that is maintained by ES is `_uid`. Without some sort of es-field-level-scripting-on-index (if that is possible at all) ... I am not sure how we could ask elasticsearch to take over auto-generating an id-like value for any arbitrary field! So the connector is setup such that adding `id: {type: String, generated: true, id: true}` will tell it to use `_uid` as the actual field backing the `id` ... you can keep using the doing `model.id` abstraction and in the background `_uid` values are mapped to it.
   1. Will this work for any field marked as with `generated: true` and `id: true`?
+    1. No! The connector isn't coded that way right now ... while it is an interesting idea to couple any such field with ES's `_uid` field inside this connector ... I am not sure if this is the right thing to do. If you had `objectId: {type: String, generated: true, id: true}` then you won't find a real `objectId` field in your ES documents. Would that be ok? Wouldn't that confuse developers who want to write custom queries and run 3rd party app against their ES instance? Don't use `obejctId`, use `_uid` would have to be common knowledge. Is that ok?
 
 ## Release notes
 
