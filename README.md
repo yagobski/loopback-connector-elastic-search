@@ -12,6 +12,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 - [Install this connector in your loopback app](#install-this-connector-in-your-loopback-app)
 - [Configuring connector](#configuring-connector)
   - [Required properties](#required)
+  - [Recommended properties](#recommended)
   - [Optional properties](#optional)
 - [Run example](#run-example)
 - [Troubleshooting](#troubleshooting)
@@ -53,7 +54,26 @@ npm install loopback-connector-es --save --save-exact
 
 ## Configuring connector
 
-1 . Edit **datasources.json** and set:
+### Required:
+- **host:** Elasticsearch engine host address.
+- **port:** Elasticsearch engine port.
+- **name:** Connector name.
+- **connector:** Elasticsearch driver.
+- **index:** Search engine specific index.
+
+### Recommended:
+- **mappings:** an array of elasticsearch mappings for your various loopback models
+
+### Optional:
+- **apiVersion:** specify the major version of the Elasticsearch nodes you will be connecting to.
+- **log:** sets elasticsearch client's logging, you can refer to the docs [here](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-log)
+- **defaultSize:** total number of results to return per page.
+- **requestTimeout:** this value is in milliseconds
+- **ssl:** useful for setting up a secure channel
+- **protocol:** can be `http` or `https` (`http` is the default if none specified) ... *must* be `https` if you're using `ssl`
+- **auth**: useful if you have access control setup via services like `es-jetty` or `found` or `shield`
+
+1. Edit **datasources.json** and set:
 
   ```
 "<ConnectorEntry>": {
@@ -112,23 +132,6 @@ npm install loopback-connector-es --save --save-exact
 }
   ```
 2. You can peek at `/examples/server/datasources.json` for more hints.
-
-### Required:
-- **host:** Elasticsearch engine host address.
-- **port:** Elasticsearch engine port.
-- **name:** Connector name.
-- **connector:** Elasticsearch driver.
-- **index:** Search engine specific index.
-
-### Optional:
-- **apiVersion:** specify the major version of the Elasticsearch nodes you will be connecting to.
-- **log:** sets elasticsearch client's logging, you can refer to the docs [here](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-log)
-- **defaultSize:** total number of results to return per page.
-- **requestTimeout:** this value is in milliseconds
-- **ssl:** useful for setting up a secure channel
-- **protocol:** can be `http` or `https` (`http` is the default if none specified) ... *must* be `https` if you're using `ssl`
-- **auth**: useful if you have access control setup via services like `es-jetty` or `found` or `shield`
-- **mappings:** an array of elasticsearch mappings for your various loopback models
 
 ## Run example
 
