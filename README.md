@@ -14,6 +14,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   - [Required properties](#required)
   - [Recommended properties](#recommended)
   - [Optional properties](#optional)
+  - [Sample for copy paste](#sample)
 - [Run example](#run-example)
 - [Troubleshooting](#troubleshooting)
 - [Developers](#developers)
@@ -73,6 +74,7 @@ npm install loopback-connector-es --save --save-exact
 - **protocol:** can be `http` or `https` (`http` is the default if none specified) ... *must* be `https` if you're using `ssl`
 - **auth**: useful if you have access control setup via services like `es-jetty` or `found` or `shield`
 
+### Sample:
 1. Edit **datasources.json** and set:
 
   ```
