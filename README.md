@@ -18,6 +18,7 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 - [Developers](#developers)
 - [Testing](#testing)
 - [Contributing](#contributing)
+- [Frequently Asked Questions](#faqs)
 - [Release notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -121,7 +122,7 @@ npm install loopback-connector-es --save --save-exact
 
 ### Optional:
 - **apiVersion:** specify the major version of the Elasticsearch nodes you will be connecting to.
-- **log:** logging option.
+- **log:** sets elasticsearch client's logging, you can refer to the docs [here](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-log)
 - **defaultSize:** total number of results to return per page.
 - **requestTimeout:** this value is in milliseconds
 - **ssl:** useful for setting up a secure channel
@@ -246,6 +247,26 @@ docker-compose up
   1. please submit your PR against the `develop` branch, if possible
   1. if you must submit your PR against the `master` branch ... I understand and I can't stop you. I only hope that there is a good reason like `develop` not being up-to-date with `master` for the work you want to build upon.
 1. `npm-release <versionNumber> -m <commit message>` may be used to publish. Pubilshing to NPM should happen from the `master` branch. It should ideally only happen when there is something release worthy. There's no point in publishing just because of changes to `test` or `examples` folder or any other such entities that aren't part of the "published module" (refer to `.npmignore`) to begin with.
+
+## FAQs
+
+1. How do we enable or disable the logs coming from the underlying elasticsearch client? There may be a need to debug/troubleshoot at times.
+  1. Use the `"log": "trace"` field in your datasources file or omit it. You can refer to the detailed docs [here](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-log) and [here](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/logging.html)
+1. How do we enable or disable the logs coming from this connector?
+  1. By default if you do not set the following env variable, they are disabled: `DEBUG=loopback:connector:elasticsearch`
+    1. For example, try running tests with and without it, to see the difference:
+      1. with: `DEBUG=loopback:connector:elasticsearch npm test`
+      1. without: `npm test`
+1. What are the tests about? Can you provide a brief overview?
+  1. Tests are prefixed with `01` or `02` etc. in order to run them in that order by leveraging default alphabetical sorting.
+  1. The `02.basic-querying.test.js` file uses two models to test various CRUD operations that any connector must provide, like `find(), findById(), findByIds(), updateAttributes()` etc.
+    1. the two models are `User` and `Customer`
+    2. their ES *mappings* are laid out in `test/resource/datasource-test.json`
+    3. their loopback *definitions* can be found in the first `before` block that performs setup in `02.basic-querying.test.js` file ... these are the equivalent of a `MyModel.json` in your real loopback app.
+      1. naturally, this is also where we define which property serves as the `id` for the model and if its [generated](https://docs.strongloop.com/display/APIC/Model+definition+JSON+file#ModeldefinitionJSONfile-IDproperties) or not
+1. How do we get elasticserch to take over ID generation?
+  1. An automatically generated id-like field that is maintained by ES is `_uid`. Without some sort of es-field-level-scripting-on-index (if that is possible at all) ... I am not sure how we could ask elasticsearch to take over auto-generating an id-like value for any arbitrary field! So the connector is setup such that adding `id: {type: String, generated: true, id: true}` will tell it to use `_uid` as the actual field backing the `id` ... you can keep using the doing `model.id` abstraction and in the background `_uid` values are mapped to it.
+  1. Will this work for any field marked as with `generated: true` and `id: true`?
 
 ## Release notes
 
