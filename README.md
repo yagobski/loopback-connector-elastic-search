@@ -312,6 +312,7 @@ docker-compose up
 
 ## Release notes
 
+  * Release `1.0.6` of this connector updates the underlying elasticsearch client version to `11.0.1`
   * For this connector, you can configure an `index` name for your ES instance and the loopback model's name is conveniently/automatically mapped as the ES `type`.
   * Users must setup `string` fields as `not_analyzed` by default for predictable matches just like other loopback backends. And if more flexibility is required, multi-field mappings can be used too.
 
