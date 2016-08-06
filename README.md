@@ -181,15 +181,17 @@ npm install loopback-connector-es --save --save-exact
 1. Did you forget to set `model-config.json` to point at the datasource you configured? Maybe you are using a different or misspelled name than what you thought you had!
 1. Did you forget to set a [valid value](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-api-version) for `apiVersion` field in `datasources.json` that matches the version of ES you are running?
 1. Maybe the version of ES you are using isn't supported by the client that this project uses. Try removing the `elasticsearch` sub-dependency from `<yourApp>/node_modules/loopback-connector-es/node_modules` folder and then install the latest client:
-
-  ```
-  cd <yourApp>/node_modules/loopback-connector-es/node_modules
-  rm -rf elasticsearch
-  npm install --save --save-exact https://github.com/elastic/elasticsearch-js.git
-  cat elasticsearch/package.json | grep -A 5 supported_es_branches
-  cd <yourApp>
-  ```
-  and test. This can easily get washed away so for more permanent fixes, please report it by [Contributing](#contributing).
+  1. `cd <yourApp>/node_modules/loopback-connector-es/node_modules`
+  1. then remove the `elasticsearch` folder
+    1. unix/mac quickie: `rm -rf elasticsearch`
+  1. `npm install --save --save-exact https://github.com/elastic/elasticsearch-js.git`
+  1. to "academically" prove to yourself that this will work with the new install:
+    1. on unix/mac you can quickly dump the supported versions to your terminal with: `cat elasticsearch/package.json | grep -A 5 supported_es_branches`
+    2. on other platforms, look into the `elasticsearch/package.json` and search for the `supported_es_branches` json block.
+  1. go back to yourApp's root directory
+    1. unix/mac quickie: `cd <yourApp>`
+  1. And test that you can now use the connector without any issues!
+  1. These changes can easily get washed away for several reasons. So for a more permanent fix that adds the version you want to work on into a release of this connector, please look into [Contributing](#contributing).
 
 ## Developers
 
