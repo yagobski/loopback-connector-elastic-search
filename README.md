@@ -15,9 +15,11 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
   - [Recommended properties](#recommended)
   - [Optional properties](#optional)
   - [Sample for copy paste](#sample)
-- [Run example](#run-example)
+- [About the example app](#about-the-example-app)
+  - [Run both example and ES in docker](#run-both-example-and-es-in-docker)
+  - [Run example locally and ES in docker](#run-example-locally-and-es-in-docker)
+  - [Run example locally](#run-example-locally)
 - [Troubleshooting](#troubleshooting)
-- [Developers](#developers)
 - [Testing](#testing)
 - [Contributing](#contributing)
 - [Frequently Asked Questions](#faqs)
@@ -32,19 +34,19 @@ Basic Elasticsearch datasource connector for [Loopback](http://strongloop.com/no
 1. `examples` directory has a loopback app which uses this connector
   1. this is not published to NPM, it is only here for demo purposes
     1. it will not be downloaded to your `node_modules` folder!
-    1. similarly the `examples/server/datasources.json` file is there for this demo app to use
-    1. you can copy it over to your `<yourApp>/server/datasources.json` if you want and edit it there but don't start editing `examples/server/datasources.json` itself and expect changes to take place in your app!
+    1. similarly the `examples/server/datasources.json` and `examples/server/datasources.<env>.js` files are there for this demo app to use
+    1. you can copy their content over to `<yourApp>/server/datasources.json` or `<yourApp>/server/datasources.<env>.js` if you want and edit it there but don't start editing the files inside `examples/server` itself and expect changes to take place in your app!
 1. `test` directory has unit tests
   1. it does not reuse the loopback app from the `examples` folder
   1. instead, loopback and ES/datasource are built and injected programatically
   1. this directory is not published to NPM.
     1. Refer to `.npmignore` if you're still confused about what's part of the *published* connector and what's not.
-1. You will find the `datasources.json` files in this repo mention various named configurations:
+1. You will find the `datasources.json` files in this repo mention various configurations:
   1. `elasticsearch-ssl`
   2. `elasticsearch-plain`
   3. `db`
   4. You don't need them all! They are just examples to help you see the various ways in which you can configure a datasource. Delete the ones you don't need and keep the one you want. For example, most people will start off with `elasticsearch-plain` and then move on to configuring the additional properties that are exemplified in `elasticsearch-ssl`. You can mix & match if you'd like to have mongo and es and memory, all three! These are basics of the "connector" framework in loooback and not something we added.
-1. Don't forget to edit your `model-config.json` file and point the models at the datasource you want to use. It should be whichever one you've taken the time to properly configure and gotten working: `elasticsearch-ssl` or `elasticsearch-plain`
+1. Don't forget to edit your `model-config.json` file and point the models at the `dataSource` you want to use.
 
 ## Install this connector in your loopback app
 
@@ -78,7 +80,7 @@ npm install loopback-connector-es --save --save-exact
 1. Edit **datasources.json** and set:
 
   ```
-"<ConnectorEntry>": {
+  "db": {
     "connector": "es",
     "name": "<name>",
     "index": "<index>",
@@ -131,11 +133,78 @@ npm install loopback-connector-es --save --save-exact
         }
       }
     }
-}
+  }
   ```
 2. You can peek at `/examples/server/datasources.json` for more hints.
 
-## Run example
+## About the example app
+
+1. The `examples` directory contains a loopback app which uses this connector.
+1. You can point this example at your own elasticsearch instance or use the quick instances provided via docker.
+
+### Run both example and ES in docker
+
+As a developer, you may want a short lived ES instance that is easy to tear down when you're finished dev testing. We recommend docker to facilitate this.
+
+**Pre-requisites**
+You will need [docker-engine](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/) installed on your system.
+
+**Step-1**
+- Set desired versions for **node** and **Elasticsearch**
+  - here are the [valid values](https://hub.docker.com/r/library/node/tags/) to use for  **Node**
+  - here are the [valid values](https://hub.docker.com/r/library/elasticsearch/tags/) to use for  **Elasticsearch**
+```
+# combination of node v0.10.46 with elasticsearch v1
+export NODE_VERSION=0.10.46
+export ES_VERSION=1
+echo 'NODE_VERSION' $NODE_VERSION && echo 'ES_VERSION' $ES_VERSION
+
+# similarly feel free to try relevant combinations:
+## of node v0.10.46 with elasticsearch v2
+## of node v0.12 with elasticsearch v2
+## of node v0.4 with elasticsearch v2
+## of node v5 with elasticsearch v2
+## elasticsearch v5 will probably not work as there isn't an `elasticsearch` client for it, as of this writing
+## etc.
+```
+**Step-2**
+- Run the setup with `docker-compose` commands.
+
+```
+git clone https://github.com/strongloop-community/loopback-connector-elastic-search.git myEsConnector
+cd myEsConnector/examples
+npm install
+docker-compose up
+```
+
+**Step-3**
+- Visit `localhost:3000/explorer` and you will find our example loopback app running there.
+
+### Run example locally and ES in docker
+
+1. Empty out `examples/server/datasources.json` so that it only has the following content remaining: `{}`
+1. Set the `NODE_ENV` environment variable on your local/host machine
+    1. Set the environment variable `NODE_ENV=sample-es-plain-1` if you want to use `examples/server/datasources.sample-es-plain-1.js`
+    1. Set the environment variable `NODE_ENV=sample-es-plain-2` if you want to use `examples/server/datasources.sample-es-plain-2.js`
+    1. Set the environment variable `NODE_ENV=sample-es-ssl-1` if you want to use `examples/server/datasources.sample-es-ssl-1.js`
+      1. a sample docker instance for this hasn't been configured yet, so it doesn't work out-of-the-box, use it only as readable (not runnable) reference material for now
+  1. You can configure your own `datasources.json` or `datasources.<env>.js` based on what you learn from these sample files.
+    1. Technically, to run the example, you don't need to set `NODE_ENV` **if you won't be configuring via the `.<env>.js` files** ... configuring everything within `datasources.json` is perfectly fine too. Just remember that you will lose the ability to have inline comments and will have to use double-quotes if you stick with `.json`
+1. Start elasticsearch version 1.x and 2.x using:
+
+  ```
+  git clone https://github.com/strongloop-community/loopback-connector-elastic-search.git myEsConnector
+  cd myEsConnector
+  docker-compose -f docker-compose-for-tests.yml up
+
+  # in another terminal window or tab
+  cd myEsConnector/examples
+  npm install
+  DEBUG=boot:test:* node server/server.js
+  ```
+1. Visit `localhost:3000/explorer` and you will find our example loopback app running there.
+
+### Run example locally
 
 1. Install dependencies and start the example server
 
@@ -192,41 +261,6 @@ npm install loopback-connector-es --save --save-exact
     1. unix/mac quickie: `cd <yourApp>`
   1. And test that you can now use the connector without any issues!
   1. These changes can easily get washed away for several reasons. So for a more permanent fix that adds the version you want to work on into a release of this connector, please look into [Contributing](#contributing).
-
-## Developers
-
-As a developer, you may want a short lived ES instance that is easy to tear down when you're finished dev testing. We recommend docker to facilitate this.
-
-**Pre-requisites**
-You will need [docker-engine](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/) installed on your system.
-
-**Step-1**
-- Set desired versions for **node** and **Elasticsearch**
-  - here are the [valid values](https://hub.docker.com/r/library/node/tags/) to use for  **Node**
-  - here are the [valid values](https://hub.docker.com/r/library/elasticsearch/tags/) to use for  **Elasticsearch**
-```
-# combination of node v0.10.46 with elasticsearch v1
-export NODE_VERSION=0.10.46
-export ES_VERSION=1
-echo 'NODE_VERSION' $NODE_VERSION && echo 'ES_VERSION' $ES_VERSION
-
-# similarly feel free to try relevant combinations:
-## of node v0.10.46 with elasticsearch v2
-## of node v0.12 with elasticsearch v2
-## of node v0.4 with elasticsearch v2
-## of node v5 with elasticsearch v2
-## elasticsearch v5 will probably not work as there isn't an `elasticsearch` client for it, as of this writing
-## etc.
-```
-**Step-2**
-- Run the setup with `docker-compose` commands.
-
-```
-git clone https://github.com/strongloop-community/loopback-connector-elastic-search.git myEsConnector
-cd myEsConnector/examples
-npm install
-docker-compose up
-```
 
 ## Testing
 
