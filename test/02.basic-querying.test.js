@@ -23,7 +23,7 @@ describe('basic-querying', function () {
         });
 
         Customer = db.define('Customer', {
-            objectId: {type: String, id: true, generated: true},
+            objectId: {type: String, id: true, generated: false},
             name: {type: String, index: true, sort: true},
             email: {type: String, index: true},
             birthday: {type: Date, index: true},
@@ -35,6 +35,8 @@ describe('basic-querying', function () {
                 type: 'Customer' // could set override here
             }
         });
+
+        //TODO: add tests for a model where type doesn't match its name
 
         setTimeout(function(){
             // no big reason to delay this ...
@@ -211,6 +213,11 @@ describe('basic-querying', function () {
                         var names = users.map(function(u) {
                             return u.name;
                         });
+
+                        // TODO: 1. find code that tries to add sort order and tell it not to do so
+                        //          because findByIds isn't meant to work like that
+                        //       2. can get clues from how mongo connector tracks the calling
+                        //          method name to accomplish the same thing
 
                         // TODO: Resolve the discussion around: https://support.strongloop.com/requests/676
                         /**

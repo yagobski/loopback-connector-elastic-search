@@ -8,7 +8,8 @@ describe('Connector', function () {
         var datasource = getDataSource(settings);
         testConnector = datasource.connector;
 
-        /*MockLoopbackModel = */datasource.define('MockLoopbackModel', {
+        datasource.define('MockLoopbackModel', {
+            // here we want to let elasticsearch auto-populate a field that will be mapped back to loopback as the `id`
             id: {type: String, generated: true, id: true}
         });
     });
@@ -44,11 +45,15 @@ describe('Connector', function () {
             .that.equals(modelName);
         expect(filterCriteria).to.have.property('body')
             .that.is.an('object')
-            .that.deep.equals({
+            .that.deep.equals({ // a. this is really 2 tests in one
                 sort: [
-                  'id'
+                  // b. `_uid` is an auto-generated field that ElasticSearch populates for us
+                  // when we want to let the backend/system/ES take care of id population
+                  // so if we want to sort by id, without specifying/controlling our own id field,
+                  // then ofcourse the sort must happen on `_uid`, this part of the test, validates that!
+                  '_uid'
                 ],
-                query: {
+                query: { // c. here we are testing the bigger picture `should build a query for the WHERE filter`
                     bool: {
                         must: [
                             {
