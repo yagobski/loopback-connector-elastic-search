@@ -6,25 +6,25 @@
         ]
     },
     "User": {
-        "dataSource": "elasticsearch-ssl"
+        "dataSource": "db"
     },
     "AccessToken": {
-        "dataSource": "elasticsearch-ssl",
+        "dataSource": "db",
         "public": false
     },
     "ACL": {
-        "dataSource": "elasticsearch-ssl",
+        "dataSource": "db",
         "public": false
     },
     "RoleMapping": {
-        "dataSource": "elasticsearch-ssl",
+        "dataSource": "db",
         "public": false
     },
     "Role": {
-        "dataSource": "elasticsearch-ssl",
+        "dataSource": "db",
         "public": false
     },
     "UserModel": {
-        "dataSource": "elasticsearch-ssl"
+        "dataSource": "db"
     }
 }
