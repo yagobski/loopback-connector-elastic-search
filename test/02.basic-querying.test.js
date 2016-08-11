@@ -825,19 +825,21 @@ describe('basic-querying', function () {
         before(seed);
 
         it('should only delete instances that satisfy the where condition', function (done) {
-            this.timeout(4000);
+            this.timeout(6000);
             // NOTE: ES indexing then searching isn't real-time ... its near-real-time
             setTimeout(function () {
                 User.destroyAll({name: 'John Lennon'}, function () {
-                    User.find({where: {name: 'John Lennon'}}, function (err, data) {
-                        should.not.exist(err);
-                        data.length.should.equal(0);
-                        User.find({where: {name: 'Paul McCartney'}}, function (err, data) {
+                    setTimeout(function () {
+                        User.find({where: {name: 'John Lennon'}}, function (err, data) {
                             should.not.exist(err);
-                            data.length.should.equal(1);
-                            done();
+                            data.length.should.equal(0);
+                            User.find({where: {name: 'Paul McCartney'}}, function (err, data) {
+                                should.not.exist(err);
+                                data.length.should.equal(1);
+                                done();
+                            });
                         });
-                    });
+                    }, 2000);
                 });
             }, 2000);
         });

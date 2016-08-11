@@ -6,7 +6,7 @@ module.exports = {
     'hosts': [
       {
         'protocol': 'https',
-        'host': 'es', //
+        'host': 'localhost',
         'port': 9243, // TODO: think about defaulting it to 9243+1=9244 for an example run against v1.x of ES
         'auth': 'username:password'
       }

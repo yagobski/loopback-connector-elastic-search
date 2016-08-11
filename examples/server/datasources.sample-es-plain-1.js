@@ -5,7 +5,7 @@ module.exports = {
     'index': 'shakespeare',
     'hosts': [
       {
-        'host': 'es',
+        'host': 'localhost',
         'port': 9201
       }
     ],
