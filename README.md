@@ -63,12 +63,12 @@ npm install loopback-connector-es --save --save-exact
 - **name:** Connector name.
 - **connector:** Elasticsearch driver.
 - **index:** Search engine specific index.
+- **apiVersion:** specify the major version of the Elasticsearch nodes you will be connecting to.
 
 ### Recommended:
 - **mappings:** an array of elasticsearch mappings for your various loopback models
 
 ### Optional:
-- **apiVersion:** specify the major version of the Elasticsearch nodes you will be connecting to.
 - **log:** sets elasticsearch client's logging, you can refer to the docs [here](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-log)
 - **defaultSize:** total number of results to return per page.
 - **requestTimeout:** this value is in milliseconds
