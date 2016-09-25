@@ -4,8 +4,9 @@ var db, User;
 
 describe('basic-querying', function () {
 
+    this.timeout(30000);
+
     before(function (done) {
-        this.timeout(4000);
 
         // turn on additional logging
         /*process.env.DEBUG += ',loopback:connector:*';
@@ -22,27 +23,31 @@ describe('basic-querying', function () {
             vip: {type: Boolean}
         });
 
-        Customer = db.define('Customer', {
-            objectId: {type: String, id: true, generated: false},
-            name: {type: String, index: true, sort: true},
-            email: {type: String, index: true},
-            birthday: {type: Date, index: true},
-            role: {type: String, index: true},
-            order: {type: Number, index: true, sort: true},
-            vip: {type: Boolean}
-        }, {
-            elasticsearch: {
-                type: 'Customer' // could set override here
+        Customer = db.define('Customer',
+            {
+                objectId: {type: String, id: true, generated: false},
+                name: {type: String, index: true, sort: true},
+                email: {type: String, index: true},
+                birthday: {type: Date, index: true},
+                role: {type: String, index: true},
+                order: {type: Number, index: true, sort: true},
+                vip: {type: Boolean}
+            },
+            {
+                elasticsearch: {
+                    index: 'juju',
+                    type: 'consumer' // could set override here
+                }
             }
-        });
+        );
 
         //TODO: add tests for a model where type doesn't match its name
 
         setTimeout(function(){
             // no big reason to delay this ...
             // just want to give the feel that getSchema and automigrate are sequential actions
-            db.automigrate(done);
-        }, 2000);
+          db.automigrate(done);//done();//db.automigrate(done);
+        }, 6000);
 
     });
 
@@ -296,6 +301,10 @@ describe('basic-querying', function () {
                 u.seq.should.equal('666');
                 done();
             });
+        });
+
+        after(function (done) {
+            db.automigrate(done);
         });
     });
 
