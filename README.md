@@ -66,7 +66,9 @@ npm install loopback-connector-es --save --save-exact
 - **apiVersion:** specify the major version of the Elasticsearch nodes you will be connecting to.
 
 ### Recommended:
-- **mappings:** an array of elasticsearch mappings for your various loopback models
+- **mappings:** an array of elasticsearch mappings for your various loopback models.
+  - if your models are spread out across different indexes then you can provide an additional `index` field as an override for your model
+  - if you don't want to use `type:ModelName` by default, then you can provide an additional `type` field as an override for your model
 
 ### Optional:
 - **log:** sets elasticsearch client's logging, you can refer to the docs [here](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-log)
@@ -103,6 +105,17 @@ npm install loopback-connector-es --save --save-exact
     "mappings": [
         {
             "name": "UserModel",
+            "properties": {
+                "realm": {"type": "string", "index" : "not_analyzed" },
+                "username": {"type": "string", "index" : "not_analyzed" },
+                "password": {"type": "string", "index" : "not_analyzed" },
+                "email": {"type": "string", "analyzer" : "email" }
+            }
+        },
+        {
+            "name": "CoolModel",
+            "index": <useSomeOtherIndex>,
+            "type": <overrideTypeName>,
             "properties": {
                 "realm": {"type": "string", "index" : "not_analyzed" },
                 "username": {"type": "string", "index" : "not_analyzed" },
