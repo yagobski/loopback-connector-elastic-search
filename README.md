@@ -294,9 +294,15 @@ docker-compose up
 
 1. Feel free to [contribute via PR](https://github.com/strongloop-community/loopback-connector-elastic-search/pulls) or [open an issue](https://github.com/strongloop-community/loopback-connector-elastic-search/issues) for discussion or jump into the [gitter chat room](https://gitter.im/strongloop-community/loopback-connector-elastic-search) if you have ideas.
 1. I recommend that project contributors who are part of the team:
+  1. should merge `master` into `develop` ... if they are behind, before starting the `feature` branch
   1. should create `feature` branches from the `develop` branch
-  1. should merge `master` into `develop` before starting the `feature` branch
-  1. should submit PRs against the `develop` branch from the `feature` branch when its ready
+  1. should merge `feature` into `develop` then create a `release` branch to:
+    1. update the changelog
+    1. update the readme
+    1. fix any bugs from final testing
+    1. commit locally and run `npm-release x.x.x -m "<some comment>"`
+    1. merge `release` into both `master` and `develop`
+    1. push `master` and `develop` to GitHub
 1. For those who use forks:
   1. please submit your PR against the `develop` branch, if possible
   1. if you must submit your PR against the `master` branch ... I understand and I can't stop you. I only hope that there is a good reason like `develop` not being up-to-date with `master` for the work you want to build upon.
