@@ -35,6 +35,8 @@
         },
         {
             "name": "Customer",
+            "index": "juju",
+            "type": "consumer",
             "properties": {
                 "objectId": {"type": "string", "index" : "not_analyzed"},
                 "name" : {
