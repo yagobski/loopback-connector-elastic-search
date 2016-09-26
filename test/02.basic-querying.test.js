@@ -32,13 +32,17 @@ describe('basic-querying', function () {
                 role: {type: String, index: true},
                 order: {type: Number, index: true, sort: true},
                 vip: {type: Boolean}
-            },
+            }/*,
             {
+                // NOTE: overriding by specifying "datasource specific options" is possible
+                //       but not recommended for index and type because the timing for setting them up
+                //       becomes tricky. It is better to provide them in the `mappings` property
+                //       of datasource.<env>.json file
                 elasticsearch: {
                     index: 'juju',
                     type: 'consumer' // could set override here
                 }
-            }
+            }*/
         );
 
         //TODO: add tests for a model where type doesn't match its name
@@ -46,7 +50,7 @@ describe('basic-querying', function () {
         setTimeout(function(){
             // no big reason to delay this ...
             // just want to give the feel that getSchema and automigrate are sequential actions
-          db.automigrate(done);//done();//db.automigrate(done);
+          db.automigrate(done);
         }, 6000);
 
     });
