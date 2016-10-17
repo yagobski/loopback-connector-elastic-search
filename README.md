@@ -77,6 +77,7 @@ npm install loopback-connector-es --save --save-exact
 - **ssl:** useful for setting up a secure channel
 - **protocol:** can be `http` or `https` (`http` is the default if none specified) ... *must* be `https` if you're using `ssl`
 - **auth**: useful if you have access control setup via services like `es-jetty` or `found` or `shield`
+- **amazonES**: configuration for `http-aws-es` NOTE: The package needs to be installed in your project. Its not part of this Connector.
 
 ### Sample:
 1. Edit **datasources.json** and set:
@@ -101,6 +102,11 @@ npm install loopback-connector-es --save --save-exact
     "ssl": {
         "ca": "./../cacert.pem",
         "rejectUnauthorized": true
+    },
+    "amazonES": {
+         "region": "us-east-1",
+         "accessKey": "AKID",
+         "secretKey": "secret"
     },
     "mappings": [
         {
