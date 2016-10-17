@@ -1,3 +1,8 @@
+### v1.3.0 - Oct 17, 2016
+- contributed by @dtomasi
+  - Issue #57: Fix for defaultSize setting
+  - Issue #55: Support Signed Requests for AWS Elasticsearch-Service
+
 ### v1.2.0 - Sep 25, 2016
 - Add eslint infrastructure
   - `npm install --save-dev eslint@2.13.1`
