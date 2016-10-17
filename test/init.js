@@ -13,18 +13,18 @@ global.expect = chai.expect;
 global.assert = chai.assert;
 global.should = chai.should(); // Why is the function being executed? Because the "should" interface extends Object.prototype to provide a single getter as the starting point for your language assertions.
 
-global._ = require('lodash');
+global._ = require('lodash'); /*global _:true*/
 
 var settings = require('./resource/datasource-test.json');
 //var settings = require('./resource/datasource-test-v1-plain.json');
 //var settings = require('./resource/datasource-test-v2-plain.json');
-global.getSettings = function() {
+global.getSettings = function() { /*global getSettings*/
     return _.cloneDeep(settings);
 };
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
 global.getDataSource = global.getSchema = global.getConnector = function (customSettings) {
-    (customSettings)
+    (customSettings) /*eslint no-console: ["error", { allow: ["log"] }] */
         ? console.log('\n\tcustomSettings will override global settings for datasource\n'/*, JSON.stringify(customSettings,null,2)*/)
         : console.log('\n\twill use global settings for datasource\n');
     var settings = customSettings || getSettings();

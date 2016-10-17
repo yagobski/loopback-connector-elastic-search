@@ -1,3 +1,10 @@
+### v1.2.0 - Sep 25, 2016
+- Add eslint infrastructure
+  - `npm install --save-dev eslint@2.13.1`
+    - ESLint v3.0.0 now requires Node.js 4 or higher. If you still need ESLint to run on Node.js < 4, then we recommend staying with ESLint v2.13.1 until you are ready to upgrade your Node.js version.
+  - https://github.com/strongloop/loopback-contributor-docs/blob/master/eslint-guide.md
+  - https://github.com/strongloop/eslint-config-loopback
+
 ### v1.1.0 - Sep 25, 2016
 - Fixed Issue #52
   - Multi Index usage

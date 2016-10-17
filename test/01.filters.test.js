@@ -1,3 +1,4 @@
+/*global getSettings getDataSource expect*/
 describe('Connector', function () {
     var testConnector;
 

@@ -1,7 +1,9 @@
 require('./init.js');
 var async = require('async');
-var db, User;
+var db, User, Customer;
 
+/*eslint no-console: "off"*/
+/*global getSchema should*/
 describe('basic-querying', function () {
 
     this.timeout(30000);
@@ -164,7 +166,7 @@ describe('basic-querying', function () {
                         }
                     }
                 }
-            }, function (err, u) {
+            }, function (err/*, u*/) {
                 //should.exist(u);
                 should.not.exist(err);
                 done();

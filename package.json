@@ -4,6 +4,8 @@
   "description": "Connect LoopBack to Elasticsearch engine",
   "main": "index.js",
   "scripts": {
+    "eslint": "eslint",
+    "pretest": "eslint **/*.js",
     "test": "mocha"
   },
   "keywords": [
@@ -52,6 +54,8 @@
   },
   "devDependencies": {
     "chai": "^2.1.2",
+    "eslint": "2.13.1",
+    "eslint-config-loopback": "4.0.0",
     "grunt": "^0.4.5",
     "grunt-mocha-test": "^0.12.1",
     "loopback-datasource-juggler": "^2.21.0",
