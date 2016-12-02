@@ -1,3 +1,7 @@
+### v1.3.1 - Dec 02, 2016
+- Fixed Regression - analyzers for index weren't being created anymore
+  - originally this was added in #25 and got lost somewhere along the way
+
 ### v1.3.0 - Oct 17, 2016
 - contributed by @dtomasi
   - Issue #57: Fix for defaultSize setting
