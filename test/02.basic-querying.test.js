@@ -1,6 +1,6 @@
 require('./init.js');
 var async = require('async');
-var db, User, Customer;
+var db, User, Customer, AccessToken;
 
 /*eslint no-console: "off"*/
 /*global getSchema should*/
@@ -46,6 +46,20 @@ describe('basic-querying', function () {
                 }
             }*/
         );
+
+
+        AccessToken = db.define('AccessToken', {
+            ttl: {
+                type: Number,
+                ttl: true,
+                default: 1209600,
+                description: "time to live in seconds (2 weeks by default)"
+            },
+            created: {
+                type: Date
+            }
+        });
+
 
         //TODO: add tests for a model where type doesn't match its name
 
@@ -958,6 +972,28 @@ describe('basic-querying', function () {
 
     });
 
+    describe('all', function () {
+
+        before(destroyAccessTokens);
+
+        it('should convert date type fields from string to javascript date object when fetched', function (done) {
+            this.timeout(4000);
+            AccessToken.create({ttl: 1209600, created: '2017-01-10T12:12:38.600Z'}, function (err, token) {
+                should.not.exist(err);
+                should.exist(token.id);
+                setTimeout(function(){
+                    AccessToken.findById(token.id, function (err, tokenInstance) {
+                        should.not.exist(err);
+                        should.exist(tokenInstance);
+                        tokenInstance.should.be.an.instanceOf(AccessToken);
+                        tokenInstance.created.should.be.an.instanceOf(Date);
+                        done();
+                    });
+                }, 2000);
+            });
+        });
+    });
+
 });
 
 function seed(done) {
@@ -1032,4 +1068,15 @@ function seedCustomers(done) {
             }, 2000);
         }
     ], done);
+}
+
+function destroyAccessTokens(done) {
+    this.timeout(4000);
+
+    AccessToken.destroyAll.bind(AccessToken);
+    setTimeout(function () {
+        done();
+    },2000)
+
+
 }

@@ -55,6 +55,14 @@
                 "order": {"type": "integer"},
                 "vip": {"type": "boolean"}
             }
+        },
+        {
+            "name": "AccessToken",
+            "properties": {
+                "id": { "type": "string", "index": "not_analyzed" },
+                "ttl": { "type": "integer" },
+                "created": { "type": "date" }
+            }
         }
     ]
 }
