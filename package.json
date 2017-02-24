@@ -1,34 +1,51 @@
 {
-  "name": "loopback-connector-elastic-search",
-  "version": "0.0.2a",
+  "name": "loopback-connector-es",
+  "version": "1.3.1",
   "description": "Connect LoopBack to Elasticsearch engine",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "eslint": "eslint",
+    "pretest": "eslint **/*.js",
+    "test": "mocha"
   },
   "keywords": [
     "loopback",
     "elastic",
+    "elasticsearch",
+    "es",
     "loopback-connector",
     "connector"
   ],
   "author": "Drakerian",
+  "contributors": [
+    {
+      "name": "Pulkit Singhal",
+      "email": "pulkit@shoppinpal.com"
+    },
+    {
+      "name": "yagobski"
+    }
+  ],
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/drakerian/loopback-connector-elastic-search.git"
+    "url": "https://github.com/strongloop-community/loopback-connector-elastic-search.git"
   },
   "license": {
     "name": "MIT",
-    "url": "https://github.com/drakerian/loopback-connector-elastic-search/blob/master/LICENCE"
+    "url": "https://github.com/strongloop-community/loopback-connector-elastic-search/blob/master/LICENCE"
   },
   "bugs": {
-    "url": "https://github.com/drakerian/loopback-connector-elastic-search/issues"
+    "url": "https://github.com/strongloop-community/loopback-connector-elastic-search/issues"
   },
-  "homepage": "https://github.com/drakerian/loopback-connector-elastic-search",
+  "homepage": "https://github.com/strongloop-community/loopback-connector-elastic-search",
   "dependencies": {
     "async": "^0.9.0",
-    "elasticsearch": "^2.4.3",
+    "bluebird": "^2.9.14",
+    "debug": "^2.1.3",
+    "elastic-deletebyquery": "1.0.7",
+    "elasticsearch": "^11.0.1",
+    "lodash": "^3.5.0",
     "loopback-connector": "^1.1.1"
   },
   "directories": {
@@ -36,9 +53,13 @@
     "test": "test"
   },
   "devDependencies": {
-    "chai": "^1.9.2",
+    "chai": "^2.1.2",
+    "eslint": "2.13.1",
+    "eslint-config-loopback": "4.0.0",
     "grunt": "^0.4.5",
     "grunt-mocha-test": "^0.12.1",
-    "mocha": "^1.21.4"
+    "loopback-datasource-juggler": "^2.21.0",
+    "mocha": "^1.21.4",
+    "should": "^5.2.0"
   }
 }

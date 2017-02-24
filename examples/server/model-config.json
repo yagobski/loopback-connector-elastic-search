@@ -24,8 +24,7 @@
         "dataSource": "db",
         "public": false
     },
-    "entry": {
-        "dataSource": "elastic-test",
-        "public": true
+    "UserModel": {
+        "dataSource": "db"
     }
 }
